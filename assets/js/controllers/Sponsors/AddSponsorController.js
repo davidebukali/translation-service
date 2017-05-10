@@ -32,6 +32,8 @@ kacheApp.controller('AddSponsor', function(
 		httpService.post(url, data).then(function(response){
 			console.log("Success "+JSON.stringify(response));
 			clearForm(btn)
+		}, function(error){
+			btn.button('reset');
 		});
 	}
 
