@@ -16,12 +16,14 @@
         <div class="x_panel">
           <div class="x_content">
             <br />
-            <form class="addSponsorForm form-horizontal form-label-left">
+            <form class="addSponsorForm form-horizontal form-label-left" name="addSponsorForm">
 
               <div class="form-group">
                 <div>
 
-                <img ngf-thumbnail="picFile" src="dist/img/user-icon.png" alt="..." class="img-circle profile_img spacing" style=" width: 15%; margin: auto !important; display: block !important;">
+                  <img ngf-thumbnail="picFile" ngf-resize-if="$width > 1000 || $height > 1000" ngf-resize="{width: 100, height: 100, centerCrop: true" src="dist/img/user-icon.png" alt="..." ng-show="picFile" class="sponsorImage img-circle profile_img spacing" style=" width: 15%; margin: auto !important; display: block;">
+
+                  <img src="dist/img/user-icon.png" ng-hide="picFile" alt="..." id="addSponsorImg" class="img-circle profile_img spacing" style=" width: 15%; margin: auto !important; display: block;">
 
                 </div>
                 <div style="display: flex;
@@ -54,14 +56,15 @@
                 <input ng-model="payload.txtpass" type="password" id="pwd" required class="form-control col-md-7 col-xs-12">
               </div>
             </div>
-          
-          <hr/>
-          <div class="form-group">
-            <div class="col-md-6 col-sm-6 col-xs-12 spacing">
-              <button data-loading-text="<i class='fa fa-btn fa-spinner fa-spin'></i> Please wait ..."  ng-click="addSponsor(picFile)" class="btn btn-success">Add</button>
-              <cancel-button></cancel-button>
+            
+            <hr/>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pwd"></label>
+              <div class="col-md-6 col-sm-6 col-xs-12 spacing">
+                <button data-loading-text="<i class='fa fa-btn fa-spinner fa-spin'></i> Please wait ..."  ng-click="addSponsor($event, picFile)" class="btn btn-success">Add</button>
+                <cancel-button></cancel-button>
+              </div>
             </div>
-          </div>
           </form>
 
         </div>
