@@ -1,0 +1,270 @@
+/*Custom css for Kache*/
+/*****************************
+
+Whole App Styles
+		
+******************************/
+body {
+  overflow-x: hidden;
+  font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body.pg-loaded .inner {
+	display:block;
+}
+
+body .container.body .right_col {
+    min-height: 1000px;
+}
+
+/*.select2-container {
+  width: 100% !important;
+}*/
+
+.white {
+	color: #fff;
+}
+
+.black {
+	color: #000;
+}
+
+.spacing-xs {
+  margin: 5px !important;
+}
+
+.spacing-sm {
+	margin: 10px !important;
+}
+
+.spacing {
+	margin: 20px !important;
+}
+
+.big-font {
+	font-size: 28px;
+}
+
+.medium-font {
+	font-size: 16px;
+}
+
+h3 {
+	margin: 20px !important;
+}
+
+.error {
+  color: orange;
+  margin: 0 0 5px 10px !important;
+  font-family: helvetica neue;
+}
+
+thead {
+  height: 30px; 
+}
+
+.roleClass {
+  width: 15%;
+}
+
+.descClass {
+  width: 35%; 
+}
+
+.page-title .title_left {
+    width: 65% !important;
+}
+
+.breadcrumb {
+  background-color: #efefef !important;
+}
+
+/*****************************
+
+Menu Section
+		
+******************************/
+
+.sidebar-footer a {
+    width: 33.2% !important;
+}
+
+.sidebar-footer {
+    z-index: 1000 !important;
+}
+
+/*****************************
+
+Add Creditor Section
+		
+******************************/
+
+.dropzone {
+    border: 4px dashed #e5e5e5 !important;
+}
+
+/*****************************
+
+Collections Report Section
+		
+******************************/
+
+body .tile_count .tile_stats_count .count {
+    font-size: 15px;
+}
+
+body .tile_count .tile_stats_count .total-loans {
+    font-size: 30px;
+}
+
+body .tile_count .tile_stats_count .total-loans-title {
+    font-size: 20px;
+}
+
+.extra-paid {
+	padding-left: 100px !important
+}
+
+
+/*****************************
+
+View Loan Borrower Section
+		
+******************************/
+
+.loan-borrower-age {
+	margin-left: 55px;
+}
+
+.loan-borrower-pic {
+	float: left;
+	width: 22%;
+	bottom: 15px;
+	right: 15px;
+	position: relative;
+}
+
+/*****************************
+
+View Loan Borrower Details Section
+		
+******************************/
+
+.collateral {
+	width: 50%;
+}
+
+.manageComment {
+	position: relative;
+	bottom: 10px;
+	right: 20px;
+}
+
+/*****************************
+
+SMS settings Section
+		
+******************************/
+
+.sms-cost {
+	font-size: 20px;
+    margin-left: 18px;
+    margin-top: 2px;
+}
+
+/*****************************
+
+Manage staff section
+		
+******************************/
+
+.profile_details:nth-child(3n) {
+  clear: both; }
+
+.profile_details .profile_view {
+  display: inline-block;
+  padding: 10px 0 0;
+  background: #fff; }
+
+.profile_details .profile_view .divider {
+  border-top: 1px solid #e5e5e5;
+  padding-top: 5px;
+  margin-top: 5px; }
+
+.profile_details .profile_view .ratings {
+  margin-bottom: 0; }
+
+.profile_details .profile_view .bottom {
+  background: #F2F5F7;
+  padding: 9px 0;
+  border-top: 1px solid #E6E9ED; }
+
+.profile_details .profile_view .left {
+  margin-top: 20px; }
+
+.profile_details .profile_view .left p {
+  margin-bottom: 3px; }
+
+.profile_details .profile_view .right {
+  margin-top: 0px;
+  padding: 10px; }
+
+.profile_details .profile_view .img-circle {
+  border: 1px solid #E6E9ED;
+  padding: 2px; }
+
+.profile_details .profile_view h2 {
+  margin: 5px 0; }
+
+.profile_details .profile_view .ratings {
+  text-align: left;
+  font-size: 16px; }
+
+.profile_details .profile_view .brief {
+  margin: 0;
+  font-weight: 300; }
+
+.profile_details .profile_left {
+  background: white; }
+
+.pagination.pagination-split li {
+  display: inline-block;
+  margin-right: 3px; }
+
+.pagination.pagination-split li a {
+  border-radius: 4px;
+  color: #768399;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px; }
+
+/** End manage staff section **/
+
+
+/*****************************
+
+Set Permissions section
+    
+******************************/
+.manage-perms {
+  position: relative;
+  bottom: 22px !important;
+}
+
+
+/*****************************
+
+Main Settings Page
+    
+******************************/
+ul.quick-list li {
+    font-size: 15px;
+}
+
+ul.quick-list li i {
+    font-size: 20px;
+}
+
+ul.quick-list li {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
