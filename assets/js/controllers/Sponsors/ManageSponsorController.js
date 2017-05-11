@@ -1,11 +1,13 @@
-kacheApp.controller('AddSponsor', function(
+kacheApp.controller('ManageSponsorCtrl', function(
 	$scope,
 	$state, 
 	utilityService, 
 	httpService, 
 	Lo,
 	Upload, 
-	$timeout
+	$timeout,
+	$stateParams,
+	appFtry
 	){
 
 	var vm = $scope;
@@ -31,7 +33,7 @@ kacheApp.controller('AddSponsor', function(
 	}
 
 	vm.manage = function($event){
-		utilityService.validateForm('.manageRoleForm :input').then(function($form, event){
+		utilityService.validateForm('.manageSponsorForm :input').then(function($form, event){
 			event.preventDefault();
 			var loadingBtn = angular.element($event.currentTarget);
 			loadingBtn.button('loading');
@@ -92,7 +94,7 @@ kacheApp.controller('AddSponsor', function(
 
 
 
-	var vm = $scope;
+	/*var vm = $scope;
 	vm.payload = {};
 	vm.addSponsor = function(event, file){
 		var addButton = $(event.currentTarget);
@@ -149,6 +151,6 @@ kacheApp.controller('AddSponsor', function(
 		vm.payload.txtpass = "";
 		vm.picFile = !vm.picFile;
 		btn.button('reset');
-	}
+	}*/
 
 });

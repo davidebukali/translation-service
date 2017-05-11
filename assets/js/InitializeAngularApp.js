@@ -82,12 +82,20 @@ kacheApp.config(function(
 		}
 	})
 
-	.state('parent.addSponsor', {
-		url: '/sponsor/add',
-		templateUrl : 'sponsors/add.html',
-		controller: 'AddSponsor',
+	.state('parent.manageSponsor', {
+		url: '/sponsors/{manage:(?:'+allowed.join('|')+')}',
+		templateUrl : 'sponsors/manage-sponsor.html',
+		controller: 'ManageSponsorCtrl',
 		data: {
 			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
+		},
+		params: {
+			manage: "add",
+			editId: "default"
+		},
+		ncyBreadcrumb: {
+		    label: '{{pageTitle}}',
+		    parent: 'parent.viewSponsor'
 		}
 	})
 
@@ -97,6 +105,9 @@ kacheApp.config(function(
 		controller: 'ViewSponsors',
 		data: {
 			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
+		},
+		ncyBreadcrumb: {
+		    label: 'View'
 		}
 	});
 

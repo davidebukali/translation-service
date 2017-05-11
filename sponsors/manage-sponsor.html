@@ -2,10 +2,11 @@
    <div class="right_col" role="main">
     <div class="page-title">
       <div class="title_left">
-        <h3>Add Sponsor</h3>
+        <h3>{{pageTitle}} Sponsor</h3>
       </div>
     </div>
     <div class="clearfix"></div>
+    <div ncy-breadcrumb></div>
 
     <!-- row -->
     <div class="row">
@@ -16,7 +17,7 @@
         <div class="x_panel">
           <div class="x_content">
             <br />
-            <form class="addSponsorForm form-horizontal form-label-left" name="addSponsorForm">
+            <form class="manageSponsorForm form-horizontal form-label-left" name="addSponsorForm">
 
               <div class="form-group">
                 <div>
@@ -61,7 +62,7 @@
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pwd"></label>
               <div class="col-md-6 col-sm-6 col-xs-12 spacing">
-                <button data-loading-text="<i class='fa fa-btn fa-spinner fa-spin'></i> Please wait ..."  ng-click="addSponsor($event, picFile)" class="btn btn-success">Add</button>
+                <button data-loading-text="<i class='fa fa-btn fa-spinner fa-spin'></i> Please wait ..."  ng-click="manage($event, picFile)" class="btn btn-success">{{pageTitle}}</button>
                 <cancel-button></cancel-button>
               </div>
             </div>

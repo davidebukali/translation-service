@@ -5,7 +5,8 @@ kacheApp.factory('stateFactory', function(Lo, utilityService) {
       setPermissions: [],
       manageRole: [],
       manageCollateralType: [],
-      manageBranch: []
+      manageBranch: [],
+      manageSponsor: []
     };
 
     return {

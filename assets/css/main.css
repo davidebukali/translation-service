@@ -332,3 +332,11 @@ Signup Page
   margin-top: 10px;
 }
 
+/*****************************
+
+Sponsor List Page
+
+******************************/
+.profileImage {
+  width: 60px !important;
+}

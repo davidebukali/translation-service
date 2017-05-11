@@ -6,7 +6,9 @@ kacheApp.factory('appFtry', function(Lo) {
       permissions: [],
       rolePermissions: [],
       branches: [],
-      collateralType: []
+      collateralType: [],
+
+      sponsors: []
     };
 
     var setDataFunctions = {
@@ -14,8 +16,39 @@ kacheApp.factory('appFtry', function(Lo) {
       permissions: setPermissionData,
       rolePermissions: setRolePermissionData,
       branches: setBranchesData,
-      collateralType: setCollateralType
+      collateralType: setCollateralType,
+
+      sponsors: setSponsorsData
     };
+
+    function setSponsorsData(sponsors){
+      console.log("Incomming data is "+JSON.stringify(sponsors));
+      var sponsorDataContainer = [];
+      for(sponsor in sponsors){
+          var sponsorData = {};
+          var picUrl = extractUserImageUrl(sponsors[sponsor]);
+          sponsorData['id'] = parseInt(sponsors[sponsor].uid);
+          sponsorData['uname'] = sponsors[sponsor].uname;
+          sponsorData['email'] = sponsors[sponsor].email;
+          sponsorData['bio'] = sponsors[sponsor].bio;
+          sponsorData['pic'] = '<img src="'+picUrl+'" alt="..." class="img-circle profile_img spacing" style=" width: 20%;">';
+          sponsorData['manageBtn'] = "<div class='row'><a class='btn btn-default btn-xs editSponsorButton' rel='"+sponsors[sponsor].uid+"'>Edit</a><a class='btn btn-danger btn-xs deleteSponsorButton' rel='"+sponsors[sponsor].uid+"'>Delete</a></div>";
+          sponsorDataContainer.push(sponsorData);
+      }
+      console.log("Our data is "+JSON.stringify(sponsorDataContainer));
+      return sponsorDataContainer;
+    }
+
+    function extractUserImageUrl(userData) {
+        var profileImage = userData['profilePic'].length;
+        if(profileImage == 0){
+          userData['profileimage'] = 'dist/img/user-icon.png';
+        }else{
+          var pic = userData['profileimage'].split('.');
+          userData['profileimage'] = 'http://imagevibez.com/church/churchimages/'+pic[0]+"_resize.jpg";
+        }
+        return userData['profileimage'];
+    }
 
     function setRolesData(roles){
       var role_id;

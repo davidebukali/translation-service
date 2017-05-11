@@ -115,7 +115,6 @@ gulp.task('move-images-files', function() {
 //Move css files
 gulp.task('move-css-files', function() {
 	return gulp.src([
-		'assets/css/agency.css',
 		'assets/css/main.css',
 		'assets/css/kache-app.css',
 		'assets/css/gentelella-admin.css'

@@ -268,3 +268,12 @@ ul.quick-list li {
     padding-bottom: 10px;
     padding-top: 10px;
 }
+
+/*****************************
+
+Sponsor List Page
+
+******************************/
+td.profileImage {
+  width: 20% !important;
+}
