@@ -31,6 +31,7 @@ kacheApp.factory('appFtry', function(Lo) {
           sponsorData['uname'] = sponsors[sponsor].uname;
           sponsorData['email'] = sponsors[sponsor].email;
           sponsorData['bio'] = sponsors[sponsor].bio;
+          sponsorData['pwd'] = sponsors[sponsor].pwd;
           sponsorData['pic'] = '<img src="'+picUrl+'" alt="..." class="img-circle profile_img spacing" style=" width: 20%;">';
           sponsorData['manageBtn'] = "<div class='row'><a class='btn btn-default btn-xs editSponsorButton' rel='"+sponsors[sponsor].uid+"'>Edit</a><a class='btn btn-danger btn-xs deleteSponsorButton' rel='"+sponsors[sponsor].uid+"'>Delete</a></div>";
           sponsorDataContainer.push(sponsorData);

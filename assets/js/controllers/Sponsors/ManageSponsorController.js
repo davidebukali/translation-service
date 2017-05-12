@@ -4,10 +4,10 @@ kacheApp.controller('ManageSponsorCtrl', function(
 	utilityService, 
 	httpService, 
 	Lo,
-	Upload, 
 	$timeout,
 	$stateParams,
-	appFtry
+	appFtry,
+	fileUpload
 	){
 
 	var vm = $scope;
@@ -24,7 +24,8 @@ kacheApp.controller('ManageSponsorCtrl', function(
 		var sponsor = appFtry.getDataById('sponsors', $stateParams.editId);
 		vm.payload = {
 			txtuname: sponsor.uname,
-			txtemail: sponsor.email
+			txtemail: sponsor.email,
+			txtpass: sponsor.pwd
 		};
 		originalSponsor = Lo.clone(vm.payload);
 		}else{
@@ -38,21 +39,63 @@ kacheApp.controller('ManageSponsorCtrl', function(
 			var loadingBtn = angular.element($event.currentTarget);
 			loadingBtn.button('loading');
 			if($stateParams.manage == 'add'){
-				addRole(loadingBtn);
+				addSponsor(loadingBtn);
 			}else{
-				updateRole(loadingBtn);
+				updateSponsor(loadingBtn);
 			}
 		});
 	}
 
-	function addRole(loadBtn){
-		RolesAndPermissionService.addRole(vm.payload).then(function(response){
-			handleAddResponse(response);
-			loadBtn.button('reset');
+	function addSponsor(addButton, file){		
+		vm.payload.sponsor = "sponsor";
+		if(vm.myFile){
+			uploadFile(addButton);
+		}else {
+			var link = 'http://imagevibez.com/church/signup.php';
+			uploadText(link, vm.payload, addButton);
+		}
+
+	}
+
+	function uploadText(url, data, btn){
+		httpService.post(url, data).then(function(response){
+			console.log("Success "+JSON.stringify(response));
+			clearForm(btn)
 		}, function(error){
-			utilityService.notify('Please contact Kachloan Customer Service For Assistance - '+error.statusText, 'danger');
-			loadBtn.button('reset');
+			btn.button('reset');
 		});
+	}
+
+	function uploadFile(btn) {
+		var file = vm.myFile,
+		fd = new FormData(),
+		uploadUrl = 'http://imagevibez.com/church/sponsorSignup.php';
+		//uploadUrl = 'http://localhost/zion-server/sponsorSignup.php';
+
+		fd.append('file', file);
+		fd.append('txtuname', vm.payload.txtuname);
+		fd.append('txtemail', vm.payload.txtemail);
+		fd.append('txtpass', vm.payload.txtpass);
+		fd.append('thumb', 'thumb');
+		fd.append('sponsor', vm.payload.sponsor);
+
+        fileUpload.uploadFileToUrl(uploadUrl, fd).then(function(res){
+            console.log("Success");
+            // clearForm(btn)
+            btn.button('reset');
+         },function(err){
+            console.log("error");
+            // clearForm(btn)
+            btn.button('reset');
+         });
+	}
+
+	function clearForm(btn){
+		vm.payload.txtuname = "";
+		vm.payload.txtemail = "";
+		vm.payload.txtpass = "";
+		vm.picFile = !vm.picFile;
+		btn.button('reset');
 	}
 
 	function updateRole(loadBtn){
@@ -102,7 +145,7 @@ kacheApp.controller('ManageSponsorCtrl', function(
 			addButton.button('loading');
 			if(file){
 				vm.payload.file = file;
-				vm.payload.thumb = "thumb";
+				vm.payload.sponsor = "thumb";
 				uploadFile(file, addButton);
 			}else {
 				vm.payload.sponsor = "sponsor";
@@ -115,42 +158,6 @@ kacheApp.controller('ManageSponsorCtrl', function(
 		}
 	}
 
-	function uploadText(url, data, btn){
-		httpService.post(url, data).then(function(response){
-			console.log("Success "+JSON.stringify(response));
-			clearForm(btn)
-		}, function(error){
-			btn.button('reset');
-		});
-	}
-
-	function uploadFile(file, btn){
-		file.upload = Upload.upload({
-			url: 'http://imagevibez.com/church/sponsorSignup.php',
-			data: vm.payload
-		});
-
-		file.upload.then(function (response) {
-			$timeout(function () {
-				clearForm(addButton);
-				file.result = response.data;
-				console.log("Success "+JSON.stringify(response.data));
-				utilityService.notify('Sponsor Account Created', 'success');
-			});
-		}, function (response) {
-			btn.button('reset');
-			if (response.status > 0)
-				$scope.errorMsg = response.status + ': ' + response.data;
-			utilityService.notify('Something went wrong, send us an email if it persists '+response.data, 'info');
-		});
-	}
-
-	function clearForm(btn){
-		vm.payload.txtuname = "";
-		vm.payload.txtemail = "";
-		vm.payload.txtpass = "";
-		vm.picFile = !vm.picFile;
-		btn.button('reset');
-	}*/
+	*/
 
 });

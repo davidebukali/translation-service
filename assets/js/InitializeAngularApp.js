@@ -8,8 +8,7 @@ var kacheApp = angular.module('kache', [
 	'datatables.bootstrap',
 	'ncy-angular-breadcrumb',
 	'ui.select',
-	'ngSanitize',
-	'ngFileUpload'
+	'ngSanitize'
 ]);
 
 kacheApp.config(function(
@@ -19,8 +18,8 @@ kacheApp.config(function(
 	$qProvider, 
 	$provide, 
 	$httpProvider,
-	uiSelectConfig/*,
-	cfpLoadingBarProvider*/){
+	uiSelectConfig
+	){
 	var allowed = ['edit', 'add'];
 	/*cfpLoadingBarProvider.includeSpinner = true;*/
 
@@ -129,9 +128,11 @@ kacheApp.config(function(
 		}
 	}
 
-	$provide.factory('redirectWhenLoggedOut', redirectWhenLoggedOut);
+	//$provide.factory('redirectWhenLoggedOut', redirectWhenLoggedOut);
 
-	$httpProvider.interceptors.push('redirectWhenLoggedOut');
+	//$httpProvider.interceptors.push('redirectWhenLoggedOut');
+
+	/*$httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = '*';*/
 
 	$qProvider.errorOnUnhandledRejections(false);
 
