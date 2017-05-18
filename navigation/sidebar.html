@@ -2,7 +2,7 @@
     
     <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a ui-sref="homeState" class="site_title"><span>Zion</span></a>
+              <a ui-sref="homeState" class="site_title"><span style="margin-left: 30%;"><img src="dist/img/zionlogo.png" style="height: 80%;"></span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -27,17 +27,21 @@
                 <h3>Kampala Branch</h3>
                 
                 <ul class="nav side-menu main-side-menu">
-                  <li class="main-li"><a class="parent" ui-sref="parent.homeState">
-                  <i class="fa fa-dashboard"></i> Dashboard</a>
-                   <ul class="nav child_menu">
-                    </ul>
+                  <li class="main-li">
+                  <a class="parent" ui-sref="parent.homeState">
+                  <i class="fa fa-dashboard"></i> Dashboard
+                  </a>
                   </li>
-                  <li class="main-li"><a class="parent"><i class="fa fa-flag"></i> Sponsors <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li class="child-li"><a class="parent" ui-sref="parent.viewSponsor">View</a></li>
-                      <li class="child-li"><a class="parent" ui-sref="parent.manageSponsor({manage: 'add'})">Add</a></li>
-                      
-                    </ul>
+                  <li class="main-li">
+                  <a class="parent">
+                  <i class="fa fa-flag"></i> Sponsors <span class="fa fa-chevron-down"></span>
+                  </a>
+                  <ul class="nav child_menu">
+                      <li class="child-li"><a class="parent" ui-sref="parent.viewSponsor">View</a>
+                      </li>
+                      <li class="child-li"><a class="parent" ui-sref="parent.manageSponsor({manage: 'add'})">Add</a>
+                      </li>
+                  </ul>
                   </li>
                   <!-- <li class="main-li"><a class="parent"><i class="fa fa-briefcase"></i> Loans <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">

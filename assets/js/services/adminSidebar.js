@@ -67,7 +67,7 @@ kacheApp.service('adminSidebarService', function($window, utilityService) {
     $SIDEBAR_MENU.find('a').on('click', function(ev) {
       var $li = $(this).parent();
 
-      if ($li.is('.active')) {
+      if ($li.is('.active') && $li.children('ul').first().is(':visible')) {
          //$li.removeClass('active active-sm');
         $('ul:first', $li).slideUp(function() {
           setContentHeight();
@@ -77,10 +77,11 @@ kacheApp.service('adminSidebarService', function($window, utilityService) {
         if (!$li.parent().is('.child_menu')) {
           $SIDEBAR_MENU.find('li').removeClass('active active-sm');
           $SIDEBAR_MENU.find('li ul').slideUp();
+        }else {
+          $li.parent('ul').children('li').removeClass('active current-page');
         }
         
         $li.addClass('active');
-
         $('ul:first', $li).slideDown(function() {
           setContentHeight();
         });
@@ -92,9 +93,9 @@ kacheApp.service('adminSidebarService', function($window, utilityService) {
 
     $SIDEBAR_MENU.find('a').filter(function () {
       return this.href == CURRENT_URL;
-    }).parent('li.child-li').addClass('current-page').parent('ul').slideDown(function() {
+    }).parent('li.child-li').parent('ul.child_menu').parent('li.main-li').addClass('active').parent('ul.side-menu').slideDown(function() {
       setContentHeight();
-    }).parent('li.main-li').addClass('active');
+    });
 
     // recompute content when resizing
     $(window).smartresize(function(){  
