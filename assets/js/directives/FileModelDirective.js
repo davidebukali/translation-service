@@ -8,7 +8,7 @@ kacheApp.directive('fileModel', ['$parse', function ($parse) {
         element.bind('change', function() {
             try {
                 var tmppath = URL.createObjectURL(element[0].files[0]);
-                $('#addSponsorImg').fadeIn("fast").attr('src',tmppath);
+                $('#addUserImg').fadeIn("fast").attr('src',tmppath);
             }
             catch(err) {
                 console.log('Sponsor error '+err);

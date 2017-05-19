@@ -1,4 +1,4 @@
-kacheApp.controller('ManageSponsorCtrl', function(
+kacheApp.controller('ManageUserCtrl', function(
 	$scope,
 	$state, 
 	utilityService, 
@@ -34,8 +34,10 @@ kacheApp.controller('ManageSponsorCtrl', function(
 	}
 
 	vm.manage = function($event){
-		utilityService.validateForm('.manageSponsorForm :input').then(function($form, event){
+		console.log("Lego");
+		utilityService.validateForm('.manageUserForm :input').then(function($form, event){
 			event.preventDefault();
+			console.log("yup Lego");
 			var loadingBtn = angular.element($event.currentTarget);
 			loadingBtn.button('loading');
 			if($stateParams.manage == 'add'){
@@ -47,10 +49,10 @@ kacheApp.controller('ManageSponsorCtrl', function(
 	}
 
 	function addSponsor(addButton, file){		
-		vm.payload.sponsor = "sponsor";
 		if(vm.myFile){
 			uploadFile(addButton);
 		}else {
+			vm.payload.sponsor = "sponsor";
 			var link = 'http://imagevibez.com/church/signup.php';
 			uploadText(link, vm.payload, addButton);
 		}
@@ -69,7 +71,8 @@ kacheApp.controller('ManageSponsorCtrl', function(
 	function uploadFile(btn) {
 		var file = vm.myFile,
 		fd = new FormData(),
-		//uploadUrl = 'http://imagevibez.com/church/sponsorSignup.php';
+		status = vm.payload.userStatus == true ? 'Y' : 'N',
+		// uploadUrl = 'http://imagevibez.com/church/sponsorSignup.php';
 		uploadUrl = 'http://localhost/zion-server/sponsorSignup.php';
 
 		fd.append('file', file);
@@ -77,7 +80,10 @@ kacheApp.controller('ManageSponsorCtrl', function(
 		fd.append('txtemail', vm.payload.txtemail);
 		fd.append('txtpass', vm.payload.txtpass);
 		fd.append('thumb', 'thumb');
-		fd.append('sponsor', vm.payload.sponsor);
+		fd.append('usertype', vm.payload.usertype);
+		fd.append('status', status);
+
+	//console.log("Payload "+JSON.stringify(vm.payload));
 
         fileUpload.uploadFileToUrl(uploadUrl, fd).then(function(res){
             console.log("Success");
@@ -94,9 +100,11 @@ kacheApp.controller('ManageSponsorCtrl', function(
 		vm.payload.txtuname = "";
 		vm.payload.txtemail = "";
 		vm.payload.txtpass = "";
-		$('#addSponsorImg').attr('src', 'dist/img/user-icon.png');
+		vm.payload.usertype = "";
+		vm.payload.userStatus = !vm.payload.userStatus;
+		$('#addUserImg').attr('src', 'dist/img/user-icon.png');
 		btn.button('reset');
-		utilityService.resetFileInput($('#sponsorimage'));
+		utilityService.resetFileInput($('#userimage'));
 	}
 
 	function updateRole(loadBtn){

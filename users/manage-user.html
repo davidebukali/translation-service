@@ -2,7 +2,7 @@
    <div class="right_col" role="main">
     <div class="page-title">
       <div class="title_left">
-        <h3>{{pageTitle}} Sponsor</h3>
+        <h3>{{pageTitle}} User</h3>
       </div>
     </div>
     <div class="clearfix"></div>
@@ -17,23 +17,23 @@
         <div class="x_panel">
           <div class="x_content">
             <br />
-            <form class="manageSponsorForm form-horizontal form-label-left" name="addSponsorForm">
+            <form class="manageUserForm form-horizontal form-label-left" name="addUserForm">
 
               <div class="form-group">
                 <div>
 
-                  <img src="dist/img/user-icon.png" alt="..." id="addSponsorImg" class="img-circle profile_img spacing" style=" width: 15%; margin: auto !important; display: block;">
+                  <img src="dist/img/user-icon.png" alt="..." id="addUserImg" class="img-circle profile_img spacing" style=" width: 15%; margin: auto !important; display: block;">
 
                 </div>
                 <div style="display: flex;
                 justify-content: center;
                 margin: 10px;">
-                <input type="file" name="image" id="sponsorimage" file-model="myFile" accept="image/*" />
+                <input type="file" name="image" id="userimage" file-model="myFile" accept="image/*" />
               </div>
             </div>
 
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="uname"> Organisation Name <span class="required">*</span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="uname"> User Name <span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input ng-model="payload.txtuname" type="text" id="uname" required class="form-control col-md-7 col-xs-12">
@@ -49,10 +49,32 @@
             </div>
 
             <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="usertype">User Type<span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
+                <select ng-model="payload.usertype" id="usertype" class="form-control col-md-7 col-xs-12" required>
+                  <option value="">Choose Type of User</option>
+                  <option value="admin">Admin</option>
+                  <option value="user">Normal User</option>
+                </select>            
+              </div>
+            </div>
+
+            <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pwd">Password<span class="required">*</span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input ng-model="payload.txtpass" type="password" id="pwd" required class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+
+            <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pwd"><span class="required"></span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12 spacing">
+                <label> <span class="spacing-sm">Disable</span>
+                  <input ng-model="payload.userStatus" type="checkbox" class="js-switch" />
+                </label><span class="spacing-sm">Enable</span> 
               </div>
             </div>
             
@@ -78,3 +100,18 @@
 
 </div>
 <!-- Ends Page Content -->
+<script type="text/javascript">
+  // Switchery
+  $(document).ready(function() {
+    if ($(".js-switch")[0]) {
+      var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+      elems.forEach(function (html) {
+        var switchery = new Switchery(html, {
+          color: '#26B99A'
+        });
+      });
+    }
+  });
+// /Switchery
+
+</script>

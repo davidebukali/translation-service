@@ -19,7 +19,10 @@ kacheApp.controller('ViewSponsors', function(
         };
 
         if(appFtry.dataLength('sponsors') <= 0){
-            httpService.post('http://imagevibez.com/church/getUsersByType.php', usertype).then(function(response){
+            //var URL = 'http://imagevibez.com/church/getUsersByType.php';
+            var URL = 'http://localhost/zion-server/getUsersByType.php';
+
+            httpService.post(URL, usertype).then(function(response){
                 appFtry.setData('sponsors', response.data.users);
                 
                 var sponsorData = appFtry.getAllData('sponsors');

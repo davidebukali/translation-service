@@ -81,10 +81,10 @@ kacheApp.config(function(
 		}
 	})
 
-	.state('parent.manageSponsor', {
-		url: '/sponsors/{manage:(?:'+allowed.join('|')+')}',
-		templateUrl : 'sponsors/manage-sponsor.html',
-		controller: 'ManageSponsorCtrl',
+	.state('parent.manageUser', {
+		url: '/users/{manage:(?:'+allowed.join('|')+')}',
+		templateUrl : 'users/manage-user.html',
+		controller: 'ManageUserCtrl',
 		data: {
 			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
 		},
@@ -98,9 +98,9 @@ kacheApp.config(function(
 		}
 	})
 
-	.state('parent.viewSponsor', {
-		url: '/sponsors/view',
-		templateUrl : 'sponsors/view.html',
+	.state('parent.viewUser', {
+		url: '/users/view',
+		templateUrl : 'users/view.html',
 		controller: 'ViewSponsors',
 		data: {
 			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
