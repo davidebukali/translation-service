@@ -5,10 +5,15 @@ kacheApp.directive('fileModel', ['$parse', function ($parse) {
         var model = $parse(attrs.fileModel);
         var modelSetter = model.assign;
 
-        element.bind('change', function(){
-            var tmppath = URL.createObjectURL(element[0].files[0]);
-            $('#addSponsorImg').fadeIn("fast").attr('src',tmppath);
-            
+        element.bind('change', function() {
+            try {
+                var tmppath = URL.createObjectURL(element[0].files[0]);
+                $('#addSponsorImg').fadeIn("fast").attr('src',tmppath);
+            }
+            catch(err) {
+                console.log('Sponsor error '+err);
+            }
+
             scope.$apply(function(){
                 modelSetter(scope, element[0].files[0]);
             });

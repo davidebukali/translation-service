@@ -94,9 +94,9 @@ kacheApp.controller('ManageSponsorCtrl', function(
 		vm.payload.txtuname = "";
 		vm.payload.txtemail = "";
 		vm.payload.txtpass = "";
-		utilityService.resetFileInput($('#sponsorimage'));
 		$('#addSponsorImg').attr('src', 'dist/img/user-icon.png');
 		btn.button('reset');
+		utilityService.resetFileInput($('#sponsorimage'));
 	}
 
 	function updateRole(loadBtn){
