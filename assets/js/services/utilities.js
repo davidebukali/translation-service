@@ -15,6 +15,15 @@ kacheApp.service('utilityService', function(
 		return string.charAt(0).toLowerCase() + string.slice(1);
 	}
 
+	function resetFormElement(e) {
+		e.wrap('<form>').closest('form').get(0).reset();
+		e.unwrap();
+
+	    // Prevent form submission
+	    e.stopPropagation();
+	    e.preventDefault();
+	}
+
 	function organisePermissions(permissions, rolePerms, roleid) {
 		var categorisedPermissions = Lo.groupBy(permissions, 'category'),
 		permissionsArray = [],
@@ -240,6 +249,7 @@ kacheApp.service('utilityService', function(
 		refresh: refreshData,
 		filterByArray: findByValues,
 		loadBranchAvailability: loadCollateralTypeBranchAvailabilityById,
-		cleanTagsData: formatDataForTags
+		cleanTagsData: formatDataForTags,
+		resetFileInput: resetFormElement
 	});
 });

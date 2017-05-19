@@ -6,6 +6,9 @@ kacheApp.directive('fileModel', ['$parse', function ($parse) {
         var modelSetter = model.assign;
 
         element.bind('change', function(){
+            var tmppath = URL.createObjectURL(element[0].files[0]);
+            $('#addSponsorImg').fadeIn("fast").attr('src',tmppath);
+            
             scope.$apply(function(){
                 modelSetter(scope, element[0].files[0]);
             });

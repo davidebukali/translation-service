@@ -69,8 +69,8 @@ kacheApp.controller('ManageSponsorCtrl', function(
 	function uploadFile(btn) {
 		var file = vm.myFile,
 		fd = new FormData(),
-		uploadUrl = 'http://imagevibez.com/church/sponsorSignup.php';
-		//uploadUrl = 'http://localhost/zion-server/sponsorSignup.php';
+		//uploadUrl = 'http://imagevibez.com/church/sponsorSignup.php';
+		uploadUrl = 'http://localhost/zion-server/sponsorSignup.php';
 
 		fd.append('file', file);
 		fd.append('txtuname', vm.payload.txtuname);
@@ -81,8 +81,8 @@ kacheApp.controller('ManageSponsorCtrl', function(
 
         fileUpload.uploadFileToUrl(uploadUrl, fd).then(function(res){
             console.log("Success");
-            // clearForm(btn)
-            btn.button('reset');
+            clearForm(btn)
+            //btn.button('reset');
          },function(err){
             console.log("error");
             // clearForm(btn)
@@ -94,7 +94,8 @@ kacheApp.controller('ManageSponsorCtrl', function(
 		vm.payload.txtuname = "";
 		vm.payload.txtemail = "";
 		vm.payload.txtpass = "";
-		vm.picFile = !vm.picFile;
+		utilityService.resetFileInput($('#sponsorimage'));
+		$('#addSponsorImg').attr('src', 'dist/img/user-icon.png');
 		btn.button('reset');
 	}
 
