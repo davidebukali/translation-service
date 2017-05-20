@@ -26,14 +26,16 @@ kacheApp.factory('appFtry', function(Lo) {
       var sponsorDataContainer = [];
       for(sponsor in sponsors){
           var sponsorData = {};
-          var picUrl = extractUserImageUrl(sponsors[sponsor]);
+          var picUrl = extractUserImageUrl(sponsors[sponsor]),
+          toggleEnableClass = sponsors[sponsor].userStatus == 'Y' ? 'hide' : '',
+          toggleDisableClass = sponsors[sponsor].userStatus == 'N' ? 'hide' : '';
           sponsorData['id'] = parseInt(sponsors[sponsor].uid);
           sponsorData['uname'] = sponsors[sponsor].uname;
           sponsorData['email'] = sponsors[sponsor].email;
           sponsorData['bio'] = sponsors[sponsor].bio;
           sponsorData['pwd'] = sponsors[sponsor].pwd;
-          sponsorData['pic'] = '<img src="'+picUrl+'" alt="..." class="img-circle profile_img spacing" style=" width: 20%;">';
-          sponsorData['manageBtn'] = "<div class='row'><a class='btn btn-default btn-xs editSponsorButton' rel='"+sponsors[sponsor].uid+"'>Edit</a><a class='btn btn-danger btn-xs deleteSponsorButton' rel='"+sponsors[sponsor].uid+"'>Delete</a></div>";
+          sponsorData['pic'] = '<img src="'+picUrl+'" alt="..." class="img-circle profile_img" style=" width: 70%;">';
+          sponsorData['manageBtn'] = "<div class='row'><a class='btn btn-default btn-xs editSponsorButton' rel='"+sponsors[sponsor].uid+"'>Edit</a><a class='btn btn-danger btn-xs disableUser disableUserButton-"+sponsors[sponsor].uid+" "+toggleDisableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-lock'></i>&nbsp Block</a><a class='btn btn-success btn-xs enableUser enableUserButton-"+sponsors[sponsor].uid+" "+toggleEnableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-unlock'></i>&nbsp Unblock</a></div>";
           sponsorDataContainer.push(sponsorData);
       }
       console.log("Our data is "+JSON.stringify(sponsorDataContainer));
@@ -45,8 +47,10 @@ kacheApp.factory('appFtry', function(Lo) {
         if(profileImage == 0){
           userData['profileimage'] = 'dist/img/user-icon.png';
         }else{
-          var pic = userData['profileimage'].split('.');
-          userData['profileimage'] = 'http://imagevibez.com/church/churchimages/'+pic[0]+"_resize.jpg";
+          var pic = userData['profilePic'].split('.'),
+          // url = 'imagevibez.com/church';
+          url = 'localhost/zion-server';
+          userData['profileimage'] = 'http://'+url+'/churchimages/'+pic[0]+"_resize.jpg";
         }
         return userData['profileimage'];
     }

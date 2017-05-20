@@ -94,7 +94,7 @@ kacheApp.config(function(
 		},
 		ncyBreadcrumb: {
 		    label: '{{pageTitle}}',
-		    parent: 'parent.viewSponsor'
+		    parent: 'parent.viewUser'
 		}
 	})
 

@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta content="IE=EmulateIE8" http-equiv="X-UA-Compatible" /> 
 
-	<title>Kachloan</title>
+	<title>Zion</title>
 
 	<!--[if lt IE 9]>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>

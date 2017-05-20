@@ -59,7 +59,7 @@ kacheApp.service('utilityService', function(
 			"token_expired": "Token Expired, Please Login Again", 
 			"token_absent": "Token Missing, Please Login", 
 			"token_invalid": "Token Invalid, Please Login",
-			"undefined": "Server Error, Please contact Kache team for assistance"
+			"undefined": "We are aware of this bug, send us an email if it persists"
 		}
 		return serverErrors[key] ? serverErrors[key] : key;
 	}
@@ -102,8 +102,8 @@ kacheApp.service('utilityService', function(
 
 	function pleaseWait(message){
 		loadingObject = window.pleaseWait({
-			logo: "dist/img/logos/aetuts.jpg",
-			backgroundColor: '#f46d3b',
+			logo: "dist/img/zion.jpg",
+			backgroundColor: '#fff',
 			loadingHtml: "<p class='loading-message'>"+message+"!</p>"
 		});
 	}
