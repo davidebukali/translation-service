@@ -149,7 +149,7 @@ kacheApp.run(function($rootScope, $state, utilityService, $document, $http){
 		console.log("toparams "+JSON.stringify(toParams));
 		console.log("fromstate "+JSON.stringify(fromState));
 		console.log("fromparams "+JSON.stringify(fromParams));*/
-		var user = JSON.parse(localStorage.getItem('user'));
+		var user = localStorage.getItem('user');
 		if(user) {
 			$rootScope.authenticated =true;
 			$rootScope.currentUser = user;

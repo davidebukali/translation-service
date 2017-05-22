@@ -14,8 +14,9 @@ kacheApp.controller('AuthCtlr', function(
 
 		auth.login(vm.email, vm.password).then(function(user){
 			utilityService.showLoadingPage("Loading ...");
-			var user = JSON.stringify(user);
-			localStorage.setItem('user', user);
+			console.log('User is '+JSON.stringify(user));
+			localStorage.setItem('user', user.uname);
+			localStorage.setItem('userPic', user.profilePic);
 			$rootScope.authenticated = true;
 			$rootScope.currentUser = user;
 			$state.go('parent.homeState');

@@ -21,7 +21,6 @@ kacheApp.service("auth", function(
         var data = data.data;
         if(data.message.indexOf('Login sucessfull') != -1){
           d.resolve(data['userDetails']);
-          console.log("Logged in as "+JSON.stringify(data));
           databaseService.insert('users', data['userDetails']).then(function(){
           });
         }else {

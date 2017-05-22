@@ -24,6 +24,31 @@ kacheApp.service('utilityService', function(
 	    e.preventDefault();
 	}
 
+	function getAvatarUrl(userData){
+        var profileImage = userData['profilePic'].length;
+        if(profileImage == 0){
+          userData['profileimage'] = 'dist/img/user-icon.png';
+        }else{
+          var pic = userData['profilePic'].split('.'),
+          // url = 'imagevibez.com/church';
+          url = 'localhost/zion-server';
+          userData['profileimage'] = 'http://'+url+'/churchimages/'+pic[0]+"_resize.jpg";
+        }
+        return userData['profileimage'];
+	}
+
+	function simpleAvatarUrl(profileimage){
+        if(profileimage.length == 0){
+          profileimage = 'dist/img/user-icon.png';
+        }else{
+          var pic = profileimage.split('.'),
+          // url = 'imagevibez.com/church';
+          url = 'localhost/zion-server';
+          profileimage = 'http://'+url+'/churchimages/'+pic[0]+"_resize.jpg";
+        }
+        return profileimage;	
+	}
+
 	function organisePermissions(permissions, rolePerms, roleid) {
 		var categorisedPermissions = Lo.groupBy(permissions, 'category'),
 		permissionsArray = [],
@@ -250,6 +275,8 @@ kacheApp.service('utilityService', function(
 		filterByArray: findByValues,
 		loadBranchAvailability: loadCollateralTypeBranchAvailabilityById,
 		cleanTagsData: formatDataForTags,
-		resetFileInput: resetFormElement
+		resetFileInput: resetFormElement,
+		getAvatarUrl: getAvatarUrl,
+		simpleAvatarUrl: simpleAvatarUrl
 	});
 });

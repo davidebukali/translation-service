@@ -7,15 +7,16 @@ kacheApp.controller('AdminHomeCtlr', function(
 	$state
 	){
 	var vm = $scope;
-	/*vm.username = 
-	vm.profilePic = 'dist/img/user-icon.png'
-	*/
+	vm.username = localStorage.getItem('user');
+	vm.profilePic = utilityService.simpleAvatarUrl(localStorage.getItem('userPic'));
+	
 	vm.menuToggle = function(){
 		adminSidebarService.toggleMenu();
 	}
 	
 	vm.logout = function($event) {
 		localStorage.removeItem('user');
-		$state.go('/');
+		localStorage.removeItem('userPic');
+		$state.go('login');
 	}
 });
