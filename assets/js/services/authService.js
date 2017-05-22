@@ -16,7 +16,11 @@ kacheApp.service("auth", function(
     var link = 'http://localhost/zion-server/login.php';
     console.log('user '+user+" pass "+pass);
     if(user && pass){
-      var content = {'txtemail' : user, 'txtupass': pass};
+      var content = {
+        'txtemail' : user, 
+        'txtupass': pass,
+        'utype': 'admin'
+      };
       httpService.post(link, content).then(function(data){
         var data = data.data;
         if(data.message.indexOf('Login sucessfull') != -1){
