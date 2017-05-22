@@ -116,6 +116,7 @@ kacheApp.controller('ManageUserCtrl', function(
 			} else {
 				handleAddResponse(res);
 			}
+			btn.button('reset');
 		},function(err){
 			console.log("error");
 			btn.button('reset');
