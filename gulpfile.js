@@ -112,14 +112,24 @@ gulp.task('move-images-files', function() {
 	.pipe(gulp.dest('dist/img'));
 });
 
-//Move css files
+//Move css and image files
 gulp.task('move-css-files', function() {
 	return gulp.src([
+		'assets/libs/iCheck/skins/flat/flat.png',
+		'assets/libs/iCheck/skins/flat/flat@2x.png',
 		'assets/css/main.css',
 		'assets/css/kache-app.css',
 		'assets/css/gentelella-admin.css'
 	])
 	.pipe(gulp.dest('dist/css'));
+});
+
+//Move green image file for iCheck
+gulp.task('move-css-files', function() {
+	return gulp.src([
+		'assets/libs/iCheck/skins/flat/green.png'
+	])
+	.pipe(gulp.dest('dist/css/flat'));
 });
 
 //Watch Files For Changes

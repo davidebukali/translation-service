@@ -21,15 +21,33 @@ kacheApp.controller('ManageUserCtrl', function(
 
 	function areWeEditingOrAdding(){
 		if(vm.pageTitle=='Edit'){
-		var sponsor = appFtry.getDataById('sponsors', $stateParams.editId);
-		vm.payload = {
-			txtuname: sponsor.uname,
-			txtemail: sponsor.email,
-			txtpass: sponsor.pwd
-		};
-		originalSponsor = Lo.clone(vm.payload);
+			var sponsor = appFtry.getDataById('sponsors', $stateParams.editId),
+			u_type = sponsor.usertype == 'admin' ? 'admin' : 'user',
+			u_status = sponsor.userStatus == 'Y' ? true : false;
+			setActivateField(u_status);
+
+			vm.payload = {
+				uid: $stateParams.editId,
+				txtuname: sponsor.uname,
+				txtemail: sponsor.email,
+				txtpass: "",
+				thumb: 'thumb',
+				usertype: u_type,
+				userstatus: ""
+			};
+
+			originalSponsor = Lo.clone(vm.payload);
 		}else{
 			vm.payload = {};
+		}
+	}
+
+	function setActivateField(activateField){
+		var field = $('.icheckbox_flat-green');
+		if(activateField){
+			field.addClass('checked active');
+		}else {
+			field.removeClass('checked active');
 		}
 	}
 
@@ -40,6 +58,8 @@ kacheApp.controller('ManageUserCtrl', function(
 			console.log("yup Lego");
 			var loadingBtn = angular.element($event.currentTarget);
 			loadingBtn.button('loading');
+			//Set user activate/deactivate field
+			vm.payload.userstatus = checkActivateUserField() ? 'Y' : 'N';
 			if($stateParams.manage == 'add'){
 				addSponsor(loadingBtn);
 			}else{
@@ -81,92 +101,79 @@ kacheApp.controller('ManageUserCtrl', function(
 		fd.append('txtpass', vm.payload.txtpass);
 		fd.append('thumb', 'thumb');
 		fd.append('usertype', vm.payload.usertype);
-		fd.append('status', status);
+		fd.append('userstatus', status);
 
 	//console.log("Payload "+JSON.stringify(vm.payload));
 
-        fileUpload.uploadFileToUrl(uploadUrl, fd).then(function(res){
-            console.log("Success");
-            clearForm(btn)
+	fileUpload.uploadFileToUrl(uploadUrl, fd).then(function(res){
+		console.log("Success");
+		clearForm(btn)
             //btn.button('reset');
-         },function(err){
-            console.log("error");
+        },function(err){
+        	console.log("error");
             // clearForm(btn)
             btn.button('reset');
-         });
-	}
+        });
+}
 
-	function clearForm(btn){
-		vm.payload.txtuname = "";
-		vm.payload.txtemail = "";
-		vm.payload.txtpass = "";
-		vm.payload.usertype = "";
-		vm.payload.userStatus = !vm.payload.userStatus;
-		$('#addUserImg').attr('src', 'dist/img/user-icon.png');
-		btn.button('reset');
-		utilityService.resetFileInput($('#userimage'));
-	}
+function clearForm(btn){
+	vm.payload.txtuname = "";
+	vm.payload.txtemail = "";
+	vm.payload.txtpass = "";
+	vm.payload.usertype = "";
+	vm.payload.userStatus = !vm.payload.userStatus;
+	$('#addUserImg').attr('src', 'dist/img/user-icon.png');
+	btn.button('reset');
+	utilityService.resetFileInput($('#userimage'));
+}
 
-	function updateRole(loadBtn){
-		if(Lo.isEqual(originalRole, vm.payload)){
-			utilityService.notify('<i class="fa fa-info medium-font"></i>   There were no updates detected to save', 'info');
+function updateSponsor(loadBtn){
+	if(Lo.isEqual(originalSponsor, vm.payload)){
+		utilityService.notify('<i class="fa fa-info medium-font"></i>   No new updates detected to save', 'info');
+		loadBtn.button('reset');
+	}else{
+		//console.log('Payload '+JSON.stringify(vm.payload));
+		var url = 'http://localhost/zion-server/editUser.php';
+		//var url = 'http://imagevibez/church/editUser.php';
+		httpService.post(url, vm.payload).then(function(response){
+			console.log("Success "+JSON.stringify(response));
+			utilityService.notify('<i class="fa fa-check medium-font"></i>   Saved', 'success');
 			loadBtn.button('reset');
-		}else{
-			RolesAndPermissionService.updateRoles($stateParams.editId, vm.payload).then(function(response){
-				handleUpdateResponse(response);
-				loadBtn.button('reset');
-			}, function(error){
-				utilityService.notify('Please contact Kachloan Customer Service For Assistance - '+error.statusText, 'danger');
-				loadBtn.button('reset');
-			});
-		}
+		}, function(error){
+			loadBtn.button('reset');
+		});	
 	}
+}
 
-	function handleUpdateResponse(response){
-		if(response.data.success){
-			utilityService.notify("Updated Role  - " + vm.payload.name, 'success');
-			originalRole = vm.payload;
-			appFtry.resetData('roles');
-			$state.go('roles');
-		}else{
-			utilityService.notify('<i class="fa fa-info medium-font"></i>  Role cannot be updated now, '+response.data.errormsg, 'info');
-		}
+function checkActivateUserField(){
+	var active = false;
+	if($('.icheckbox_flat-green').hasClass('checked')){
+		active = true;
+	}else{
+		active = false;
 	}
+	return active;
+}
 
-	function handleAddResponse(response){
-		if(response.data.success){
-			utilityService.notify("Added Role - " + vm.payload.name, 'success');
-			vm.payload = {};
-			vm.myForm.$setPristine();
-		}else{
-			utilityService.notify('Information - '+response.data.errormsg, 'info');
-		}
+function handleUpdateResponse(response){
+	if(response.data.success){
+		utilityService.notify("Updated Role  - " + vm.payload.name, 'success');
+		originalRole = vm.payload;
+		appFtry.resetData('roles');
+		$state.go('roles');
+	}else{
+		utilityService.notify('<i class="fa fa-info medium-font"></i>  Role cannot be updated now, '+response.data.errormsg, 'info');
 	}
+}
 
-
-
-
-	/*var vm = $scope;
-	vm.payload = {};
-	vm.addSponsor = function(event, file){
-		var addButton = $(event.currentTarget);
-		if(vm.payload.txtuname && vm.payload.txtemail && vm.payload.txtpass){
-			addButton.button('loading');
-			if(file){
-				vm.payload.file = file;
-				vm.payload.sponsor = "thumb";
-				uploadFile(file, addButton);
-			}else {
-				vm.payload.sponsor = "sponsor";
-				var link = 'http://imagevibez.com/church/signup.php';
-				uploadText(link, vm.payload, addButton);
-			}
-			
-		}else {
-			utilityService.notify('All fields required', 'info');
-		}
+function handleAddResponse(response){
+	if(response.data.success){
+		utilityService.notify("Added Role - " + vm.payload.name, 'success');
+		vm.payload = {};
+		vm.myForm.$setPristine();
+	}else{
+		utilityService.notify('Information - '+response.data.errormsg, 'info');
 	}
-
-	*/
+}
 
 });

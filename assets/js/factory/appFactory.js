@@ -34,8 +34,10 @@ kacheApp.factory('appFtry', function(Lo) {
           sponsorData['email'] = sponsors[sponsor].email;
           sponsorData['bio'] = sponsors[sponsor].bio;
           sponsorData['pwd'] = sponsors[sponsor].pwd;
+          sponsorData['usertype'] = sponsors[sponsor].usertype;
+          sponsorData['userStatus'] = sponsors[sponsor].userStatus;
           sponsorData['pic'] = '<img src="'+picUrl+'" alt="..." class="img-circle profile_img" style=" width: 70%;">';
-          sponsorData['manageBtn'] = "<div class='row'><a class='btn btn-default btn-xs editSponsorButton' rel='"+sponsors[sponsor].uid+"'>Edit</a><a class='btn btn-danger btn-xs disableUser disableUserButton-"+sponsors[sponsor].uid+" "+toggleDisableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-lock'></i>&nbsp Block</a><a class='btn btn-success btn-xs enableUser enableUserButton-"+sponsors[sponsor].uid+" "+toggleEnableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-unlock'></i>&nbsp Unblock</a></div>";
+          sponsorData['manageBtn'] = "<div class='row'><a class='btn btn-default btn-xs editUserButton' rel='"+sponsors[sponsor].uid+"'>Edit</a><a class='btn btn-danger btn-xs disableUser disableUserButton-"+sponsors[sponsor].uid+" "+toggleDisableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-lock'></i>&nbsp Block</a><a class='btn btn-success btn-xs enableUser enableUserButton-"+sponsors[sponsor].uid+" "+toggleEnableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-unlock'></i>&nbsp Unblock</a></div>";
           sponsorDataContainer.push(sponsorData);
       }
       console.log("Our data is "+JSON.stringify(sponsorDataContainer));

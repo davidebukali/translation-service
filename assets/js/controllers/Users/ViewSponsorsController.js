@@ -39,18 +39,17 @@ kacheApp.controller('ViewSponsors', function(
   DTColumnBuilder.newColumn('manageBtn').withTitle('Manage').notSortable()
   ];
 
-  $(document).on('click', '.permsButton', function(e){
+  $(document).on('click', '.editUserButton', function(e){
      e.preventDefault();
      var id = $(this).attr('rel'), 
-     name = $(this).attr('name'),
      stateFactoryDueForCaching = {
-        paramId: id,
-        paramName: name
-    };
-    stateFactory.setData('setPermissions', stateFactoryDueForCaching);
-    vm.$apply(function(){
-      $state.go('setPermissions', stateFactoryDueForCaching);	
-  });
+            editId: id,
+            manage: 'edit'
+        };
+        stateFactory.setData('manageUser', stateFactoryDueForCaching);
+      vm.$apply(function(){
+        $state.go('parent.manageUser', stateFactoryDueForCaching); 
+      });
 });
 
 $(document).on('click', '.enableUser', function(e){

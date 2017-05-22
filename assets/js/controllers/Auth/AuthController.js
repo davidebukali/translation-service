@@ -20,6 +20,7 @@ kacheApp.controller('AuthCtlr', function(
 			$rootScope.currentUser = user;
 			$state.go('parent.homeState');
 		}).fail(function(error){
+			loginBtn.button('reset');
 			var error = error;
 			if(error == undefined){
 				vm.loginError = true;
@@ -27,8 +28,9 @@ kacheApp.controller('AuthCtlr', function(
 				utilityService.notify(error, 'danger');
 			}else if(error.indexOf('null') != -1) {
 				utilityService.notify("Please check internet connection", 'danger');
+			}else{
+				utilityService.notify(error, 'danger');
 			}
-			loginBtn.button('reset');
 		});
 	}
 

@@ -104,7 +104,7 @@ kacheApp.service('utilityService', function(
 		loadingObject = window.pleaseWait({
 			logo: "dist/img/zion.jpg",
 			backgroundColor: '#fff',
-			loadingHtml: "<p class='loading-message'>"+message+"!</p>"
+			loadingHtml: "<p class='loading-message medium-font color-red'><i class='fa fa-refresh fa-spin medium-font'></i>&nbsp"+message+"</p>"
 		});
 	}
 

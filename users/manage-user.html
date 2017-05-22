@@ -61,20 +61,18 @@
             </div>
 
             <div class="form-group">
-              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pwd">Password<span class="required">*</span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pwd">Password<span class="required"></span>
               </label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input ng-model="payload.txtpass" type="password" id="pwd" required class="form-control col-md-7 col-xs-12">
+                <input ng-model="payload.txtpass" type="password" id="pwd" class="form-control col-md-7 col-xs-12">
               </div>
             </div>
 
             <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pwd"><span class="required"></span>
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="pwd">Activate Account<span class="required">*</span>
               </label>
-              <div class="col-md-6 col-sm-6 col-xs-12 spacing">
-                <label> <span class="spacing-sm">Disable</span>
-                  <input ng-model="payload.userStatus" type="checkbox" class="js-switch" />
-                </label><span class="spacing-sm">Enable</span> 
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input ng-model="payload.userstatus" type="checkbox" class="flat spacing activateUser" />
               </div>
             </div>
             
@@ -101,17 +99,16 @@
 </div>
 <!-- Ends Page Content -->
 <script type="text/javascript">
-  // Switchery
-  $(document).ready(function() {
-    if ($(".js-switch")[0]) {
-      var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-      elems.forEach(function (html) {
-        var switchery = new Switchery(html, {
-          color: '#26B99A'
+  // iCheck
+$(document).ready(function() {
+    if ($("input.flat")[0]) {
+        $(document).ready(function () {
+            $('input.flat').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            });
         });
-      });
     }
-  });
-// /Switchery
-
+});
+// /iCheck
 </script>
