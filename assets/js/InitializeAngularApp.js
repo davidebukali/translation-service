@@ -73,7 +73,7 @@ kacheApp.config(function(
 	})
 
 	.state('parent.homeState', {
-		url: '/home',
+		url: '/home/',
 		templateUrl : 'dashboard/dashboard.html',
 		controller: 'Dashboard',
 		data: {

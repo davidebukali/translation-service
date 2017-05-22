@@ -25,7 +25,7 @@ kacheApp.controller('ManageUserCtrl', function(
 			u_type = sponsor.usertype == 'admin' ? 'admin' : 'user',
 			u_status = sponsor.userStatus == 'Y' ? true : false;
 			setActivateField(u_status);
-
+			
 			vm.payload = {
 				uid: $stateParams.editId,
 				txtuname: sponsor.uname,
@@ -35,8 +35,11 @@ kacheApp.controller('ManageUserCtrl', function(
 				usertype: u_type,
 				userstatus: ""
 			};
+			//Set profile pic
+			$('#addUserImg').attr('src', sponsor.picUrl);
 
 			originalSponsor = Lo.clone(vm.payload);
+			
 		}else{
 			vm.payload = {};
 		}
@@ -52,10 +55,8 @@ kacheApp.controller('ManageUserCtrl', function(
 	}
 
 	vm.manage = function($event){
-		console.log("Lego");
 		utilityService.validateForm('.manageUserForm :input').then(function($form, event){
 			event.preventDefault();
-			console.log("yup Lego");
 			var loadingBtn = angular.element($event.currentTarget);
 			loadingBtn.button('loading');
 			//Set user activate/deactivate field
@@ -70,7 +71,8 @@ kacheApp.controller('ManageUserCtrl', function(
 
 	function addSponsor(addButton, file){		
 		if(vm.myFile){
-			uploadFile(addButton);
+			var link = 'http://localhost/zion-server/sponsorSignup.php';
+			uploadFile(link, addButton);
 		}else {
 			vm.payload.sponsor = "sponsor";
 			var link = 'http://imagevibez.com/church/signup.php';
@@ -83,19 +85,21 @@ kacheApp.controller('ManageUserCtrl', function(
 		httpService.post(url, data).then(function(response){
 			console.log("Success "+JSON.stringify(response));
 			clearForm(btn)
+			handleAddResponse(response);
 		}, function(error){
 			btn.button('reset');
 		});
 	}
 
-	function uploadFile(btn) {
+	function uploadFile(url, btn) {
 		var file = vm.myFile,
 		fd = new FormData(),
 		status = vm.payload.userStatus == true ? 'Y' : 'N',
 		// uploadUrl = 'http://imagevibez.com/church/sponsorSignup.php';
-		uploadUrl = 'http://localhost/zion-server/sponsorSignup.php';
+		uploadUrl = url;
 
 		fd.append('file', file);
+		fd.append('uid', $stateParams.editId);
 		fd.append('txtuname', vm.payload.txtuname);
 		fd.append('txtemail', vm.payload.txtemail);
 		fd.append('txtpass', vm.payload.txtpass);
@@ -103,46 +107,49 @@ kacheApp.controller('ManageUserCtrl', function(
 		fd.append('usertype', vm.payload.usertype);
 		fd.append('userstatus', status);
 
-	//console.log("Payload "+JSON.stringify(vm.payload));
+		//console.log("Payload "+JSON.stringify(vm.payload));
 
-	fileUpload.uploadFileToUrl(uploadUrl, fd).then(function(res){
-		console.log("Success");
-		clearForm(btn)
-            //btn.button('reset');
-        },function(err){
-        	console.log("error");
-            // clearForm(btn)
-            btn.button('reset');
-        });
-}
-
-function clearForm(btn){
-	vm.payload.txtuname = "";
-	vm.payload.txtemail = "";
-	vm.payload.txtpass = "";
-	vm.payload.usertype = "";
-	vm.payload.userStatus = !vm.payload.userStatus;
-	$('#addUserImg').attr('src', 'dist/img/user-icon.png');
-	btn.button('reset');
-	utilityService.resetFileInput($('#userimage'));
-}
-
-function updateSponsor(loadBtn){
-	if(Lo.isEqual(originalSponsor, vm.payload)){
-		utilityService.notify('<i class="fa fa-info medium-font"></i>   No new updates detected to save', 'info');
-		loadBtn.button('reset');
-	}else{
-		//console.log('Payload '+JSON.stringify(vm.payload));
-		var url = 'http://localhost/zion-server/editUser.php';
-		//var url = 'http://imagevibez/church/editUser.php';
-		httpService.post(url, vm.payload).then(function(response){
-			console.log("Success "+JSON.stringify(response));
-			utilityService.notify('<i class="fa fa-check medium-font"></i>   Saved', 'success');
-			loadBtn.button('reset');
-		}, function(error){
-			loadBtn.button('reset');
-		});	
+		fileUpload.uploadFileToUrl(uploadUrl, fd).then(function(res){
+			console.log("Success");
+			if (vm.pageTitle=='Edit') {
+				handleUpdateResponse(res);
+			} else {
+				handleAddResponse(res);
+			}
+		},function(err){
+			console.log("error");
+			btn.button('reset');
+		});
 	}
+
+	function updateSponsor(loadBtn){
+		if(Lo.isEqual(originalSponsor, vm.payload)){
+			utilityService.notify('<i class="fa fa-info medium-font"></i>   No new updates detected to save', 'info');
+			loadBtn.button('reset');
+		}else{
+		//console.log('Payload '+JSON.stringify(vm.payload));
+
+		if(vm.myFile){
+			console.log("We have a file");
+			var url = 'http://localhost/zion-server/editUserPic.php';
+			//var url = 'http://imagevibez/church/editUser.php';
+			uploadFile(url, loadBtn);
+		}else{
+			var url = 'http://localhost/zion-server/editUser.php';
+			//var url = 'http://imagevibez/church/editUser.php';
+			updateText(url, loadBtn);
+		}
+	}
+}
+
+function updateText(url, loadBtn){
+	httpService.post(url, vm.payload).then(function(response){
+		console.log("Success "+JSON.stringify(response));
+		handleUpdateResponse(response);
+		loadBtn.button('reset');
+	}, function(error){
+		loadBtn.button('reset');
+	});	
 }
 
 function checkActivateUserField(){
@@ -157,23 +164,34 @@ function checkActivateUserField(){
 
 function handleUpdateResponse(response){
 	if(response.data.success){
-		utilityService.notify("Updated Role  - " + vm.payload.name, 'success');
+		utilityService.notify('<i class="fa fa-check medium-font"></i> User Updated', 'success');
 		originalRole = vm.payload;
-		appFtry.resetData('roles');
-		$state.go('roles');
+		//appFtry.resetData('');
 	}else{
-		utilityService.notify('<i class="fa fa-info medium-font"></i>  Role cannot be updated now, '+response.data.errormsg, 'info');
+		utilityService.notify('<i class="fa fa-exclamation-triangle medium-font"></i> User cannot be updated now, '+response.data.errormsg, 'info');
 	}
 }
 
 function handleAddResponse(response){
 	if(response.data.success){
-		utilityService.notify("Added Role - " + vm.payload.name, 'success');
+		utilityService.notify('<i class="fa fa-check medium-font"></i> User Added', 'success');
 		vm.payload = {};
-		vm.myForm.$setPristine();
+		vm.addUserForm.$setPristine();
 	}else{
-		utilityService.notify('Information - '+response.data.errormsg, 'info');
+		utilityService.notify('<i class="fa fa-exclamation-triangle medium-font"></i> Information - '+response.data.errormsg, 'info');
 	}
+}
+
+
+function clearForm(btn){
+	vm.payload.txtuname = "";
+	vm.payload.txtemail = "";
+	vm.payload.txtpass = "";
+	vm.payload.usertype = "";
+	vm.payload.userStatus = !vm.payload.userStatus;
+	$('#addUserImg').attr('src', 'dist/img/user-icon.png');
+	btn.button('reset');
+	utilityService.resetFileInput($('#userimage'));
 }
 
 });
