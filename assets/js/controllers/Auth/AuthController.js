@@ -13,7 +13,7 @@ kacheApp.controller('AuthCtlr', function(
 		loginBtn.button('loading');
 
 		auth.login(vm.email, vm.password).then(function(user){
-			utilityService.showLoadingPage("Loading ...");
+			utilityService.showLoadingPage("Loading");
 			console.log('User is '+JSON.stringify(user));
 			localStorage.setItem('user', user.uname);
 			localStorage.setItem('userPic', user.profilePic);
