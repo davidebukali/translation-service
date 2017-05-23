@@ -106,7 +106,23 @@ kacheApp.config(function(
 			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
 		},
 		ncyBreadcrumb: {
-		    label: 'View'
+		    label: 'Users'
+		}
+	})
+
+	.state('parent.viewUserPosts', {
+		url: '/users/posts/view',
+		templateUrl : 'posts/view.html',
+		controller: 'PostsCtlr',
+		data: {
+			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
+		},
+		params: {
+			uname: "User"
+		},
+		ncyBreadcrumb: {
+		    label: 'Posts',
+		    parent: 'parent.viewUser'
 		}
 	});
 

@@ -7,7 +7,7 @@ kacheApp.factory('appFtry', function(Lo){
       rolePermissions: [],
       branches: [],
       collateralType: [],
-
+      posts: [],
       sponsors: []
     };
 
@@ -17,12 +17,11 @@ kacheApp.factory('appFtry', function(Lo){
       rolePermissions: setRolePermissionData,
       branches: setBranchesData,
       collateralType: setCollateralType,
-
+      posts: setPosts,
       sponsors: setSponsorsData
     };
 
     function setSponsorsData(sponsors){
-      console.log("Incomming data is "+JSON.stringify(sponsors));
       var sponsorDataContainer = [];
       for(sponsor in sponsors){
         var sponsorData = {};
@@ -37,6 +36,7 @@ kacheApp.factory('appFtry', function(Lo){
         sponsorData['usertype'] = sponsors[sponsor].usertype;
         sponsorData['userStatus'] = sponsors[sponsor].userStatus;
         sponsorData['picUrl'] = picUrl;
+        sponsorData['viewposts'] = "<a class='btn btn-primary btn-xs viewUserPostsButton' rel='"+sponsors[sponsor].uid+"'>View Posts</a>";
         sponsorData['pic'] = '<img src="'+picUrl+'" alt="..." class="img-circle profile_img" style=" width: 70%;">';
         sponsorData['manageBtn'] = "<div class='row'><a class='btn btn-default btn-xs editUserButton' rel='"+sponsors[sponsor].uid+"'>Edit</a><a class='btn btn-danger btn-xs disableUser disableUserButton-"+sponsors[sponsor].uid+" "+toggleDisableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-lock'></i>&nbsp Block</a><a class='btn btn-success btn-xs enableUser enableUserButton-"+sponsors[sponsor].uid+" "+toggleEnableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-unlock'></i>&nbsp Unblock</a></div>";
         sponsorDataContainer.push(sponsorData);
@@ -56,6 +56,10 @@ kacheApp.factory('appFtry', function(Lo){
           userData['profileimage'] = 'http://'+url+'/churchimages/'+pic[0]+"_resize.jpg";
         }
         return userData['profileimage'];
+      }
+
+      function setPosts(postData){
+        return Lo.chunk(postData, 5);
       }
 
       function setRolesData(roles){
