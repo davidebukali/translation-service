@@ -59,7 +59,12 @@ kacheApp.factory('appFtry', function(Lo){
       }
 
       function setPosts(postData){
-        return Lo.chunk(postData, 5);
+        var data = Lo.forEach(postData, function(item){            
+            item.imagePaths = "http://localhost/zion-server/churchimages/"+item.imagePaths;
+            item.time = new Date(item.time).toString();
+            return item;
+        });
+        return Lo.chunk(data, 5);
       }
 
       function setRolesData(roles){
