@@ -60,8 +60,11 @@ kacheApp.factory('appFtry', function(Lo){
 
       function setPosts(postData){
         var data = Lo.forEach(postData, function(item){            
+            var date = new Date(item.time),
+            time = date.toLocaleTimeString(),
+            datestring = date.toDateString();
             item.imagePaths = "http://localhost/zion-server/churchimages/"+item.imagePaths;
-            item.time = new Date(item.time).toString();
+            item.time = datestring+', '+time;
             return item;
         });
         return Lo.chunk(data, 5);
