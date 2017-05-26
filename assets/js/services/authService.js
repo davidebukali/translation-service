@@ -1,7 +1,8 @@
 kacheApp.service("auth", function( 
 		httpService, 
 		databaseService,
-		profileFactory
+		profileFactory,
+    utilityService
 		){
   // Return public API.
   return({
@@ -12,14 +13,14 @@ kacheApp.service("auth", function(
   
   function login(user, pass) {
     var d = $.Deferred();
-    //var link = 'http://imagevibez.com/church/login.php';
-    var link = 'http://localhost/zion-server/login.php';
+    var link = utilityService.getAppUrl()+'login.php';
+    
     console.log('user '+user+" pass "+pass);
     if(user && pass){
       var content = {
         'txtemail' : user, 
         'txtupass': pass,
-        'utype': 'admin'
+        'usertype': 'admin'
       };
       httpService.post(link, content).then(function(data){
         var data = data.data;

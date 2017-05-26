@@ -125,16 +125,17 @@ gulp.task('move-css-files', function() {
 });
 
 //Move green image file for iCheck
-gulp.task('move-css-files', function() {
+gulp.task('move-icheck-files', function() {
 	return gulp.src([
-		'assets/libs/iCheck/skins/flat/green.png'
+		'assets/libs/iCheck/skins/flat/green.png',
+		'assets/libs/iCheck/skins/flat/green@2x.png'
 	])
 	.pipe(gulp.dest('dist/css/flat'));
 });
 
 //Watch Files For Changes
 gulp.task('watch', function() {
-	gulp.watch('assets/lib/css/*.css', ['styles']);
+	gulp.watch('assets/css/*.css', ['move-css-files']);
 	gulp.watch('assets/js/**/*.js', ['scripts']);
 });
 //Default Task
@@ -143,6 +144,7 @@ gulp.task('default', function(){
 		'styles', 
 		'move-bootstrap-files', 
 		'move-images-files',
+		'move-icheck-files',
 		'move-css-files',
 		'vendorscripts', 
 		'scripts', 

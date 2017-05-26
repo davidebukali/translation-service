@@ -118,7 +118,8 @@ kacheApp.config(function(
 			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
 		},
 		params: {
-			uname: "User"
+			uname: "User",
+			uid: ""
 		},
 		ncyBreadcrumb: {
 		    label: 'Posts',

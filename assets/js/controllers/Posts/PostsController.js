@@ -47,4 +47,31 @@ kacheApp.controller('PostsCtlr', function(
 		activePager.addClass('active');
 	}
 
+	vm.togglePost = function(action, event){
+		var url = utilityService.getAppUrl()+'togglePosts.php',
+		pid = $(event.currentTarget).attr('rel');
+		httpService.post(url, {task: action, postid: pid}).then(function(response){
+			console.log("response "+JSON.stringify(response));
+			refreshPosts();
+		}, function(error){
+			utilityService.notify('We are aware of this issue, send us an email if it persists - '+error.statusText, 'danger');
+		});		
+	}
+
+	function refreshPosts(){
+		var data = {
+			uid: $stateParams.uid
+		},
+		url = utilityService.getAppUrl()+'getMyPosts.php';
+		httpService.post(url, data).then(function(response){
+			appFtry.setData('posts', response.data.posts);
+			vm.pagination.postsData = appFtry.getAllData('posts');
+			var index = vm.pagination.counter - 1;
+			vm.pagination.actualPosts = vm.pagination.postsData[index];
+			toggleActiveClass('.pager-'+index);
+		}, function(error){
+			utilityService.notify('We are aware of this issue, send us an email if it persists - '+error.statusText, 'danger');
+		});
+	}
+
 });

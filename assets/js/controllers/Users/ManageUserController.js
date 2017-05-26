@@ -30,10 +30,10 @@ kacheApp.controller('ManageUserCtrl', function(
 				uid: $stateParams.editId,
 				txtuname: sponsor.uname,
 				txtemail: sponsor.email,
-				txtpass: "",
 				thumb: 'thumb',
 				usertype: u_type,
-				userstatus: ""
+				userstatus: "",
+				txtpass: ""
 			};
 			//Set profile pic
 			$('#addUserImg').attr('src', sponsor.picUrl);
@@ -71,11 +71,11 @@ kacheApp.controller('ManageUserCtrl', function(
 
 	function addSponsor(addButton, file){		
 		if(vm.myFile){
-			var link = 'http://localhost/zion-server/sponsorSignup.php';
+			var link = utilityService.getAppUrl()+'sponsorSignup.php';
 			uploadFile(link, addButton);
 		}else {
 			vm.payload.sponsor = "sponsor";
-			var link = 'http://imagevibez.com/church/signup.php';
+			var link = utilityService.getAppUrl()+'signup.php';
 			uploadText(link, vm.payload, addButton);
 		}
 
@@ -94,8 +94,6 @@ kacheApp.controller('ManageUserCtrl', function(
 	function uploadFile(url, btn) {
 		var file = vm.myFile,
 		fd = new FormData(),
-		status = vm.payload.userStatus == true ? 'Y' : 'N',
-		// uploadUrl = 'http://imagevibez.com/church/sponsorSignup.php';
 		uploadUrl = url;
 
 		fd.append('file', file);
@@ -105,9 +103,7 @@ kacheApp.controller('ManageUserCtrl', function(
 		fd.append('txtpass', vm.payload.txtpass);
 		fd.append('thumb', 'thumb');
 		fd.append('usertype', vm.payload.usertype);
-		fd.append('userstatus', status);
-
-		//console.log("Payload "+JSON.stringify(vm.payload));
+		fd.append('userstatus', vm.payload.userstatus);
 
 		fileUpload.uploadFileToUrl(uploadUrl, fd).then(function(res){
 			console.log("Success");
@@ -132,12 +128,10 @@ kacheApp.controller('ManageUserCtrl', function(
 
 		if(vm.myFile){
 			console.log("We have a file");
-			var url = 'http://localhost/zion-server/editUserPic.php';
-			//var url = 'http://imagevibez/church/editUser.php';
+			var url = utilityService.getAppUrl()+'editUserPic.php';
 			uploadFile(url, loadBtn);
 		}else{
-			var url = 'http://localhost/zion-server/editUser.php';
-			//var url = 'http://imagevibez/church/editUser.php';
+			var url = utilityService.getAppUrl()+'editUser.php';
 			updateText(url, loadBtn);
 		}
 	}
@@ -167,7 +161,6 @@ function handleUpdateResponse(response){
 	if(response.data.success){
 		utilityService.notify('<i class="fa fa-check medium-font"></i> User Updated', 'success');
 		originalRole = vm.payload;
-		//appFtry.resetData('');
 	}else{
 		utilityService.notify('<i class="fa fa-exclamation-triangle medium-font"></i> User cannot be updated now, '+response.data.errormsg, 'info');
 	}

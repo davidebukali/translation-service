@@ -17,42 +17,47 @@
         <div class="x_panel">
           <div class="x_title">
             <h2>{{pagination.username}} Posts <small>Sessions</small></h2>
-            <ul class="nav navbar-right panel_toolbox">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Filter <i class="fa fa-sort"></i></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="#">All</a>
-                  </li>
-                  <li><a href="#">Normal</a>
-                  </li>
-                  <li><a href="#">Testimonies</a>
-                  </li>
-                  <li><a href="#">Devotionals</a>
-                  </li>
-                  <li><a href="#">Reported Inappropriate</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <div class="clearfix"></div>
+<!--             <ul class="nav navbar-right panel_toolbox">
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Filter <i class="fa fa-sort"></i></a>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">All</a>
+      </li>
+      <li><a href="#">Normal</a>
+      </li>
+      <li><a href="#">Testimonies</a>
+      </li>
+      <li><a href="#">Devotionals</a>
+      </li>
+      <li><a href="#">Reported Inappropriate</a>
+      </li>
+    </ul>
+  </li>
+</ul> -->
+<div class="clearfix"></div> 
           </div>
           <div class="x_content">
             <ul class="list-unstyled msg_list">
               <li ng-repeat="item in pagination.actualPosts">
-                <a>
+                <a style="width: 100%;">
                   <span class="image">
-                    <img src="dist/img/user-icon.png" alt="img" style="width: 20% !important" />
+                    <img ng-src="dist/img/user-icon.png" alt="img" style="width: 150px;" />
                   </span>
                   <span>
                     <span>{{pagination.username}}</span>
-                    <span class="time">{{item.time}}</span>
+                    <span class="postsTime"><br/>{{item.time}}</span>
                   </span>
                   <span class="message">
                     {{item.content}}
                   </span>
+                  <span>
+                    <button rel="{{item.pid}}" ng-click="togglePost('Y', $event)" ng-hide="item.published == 'Y'" class="btn btn-xs btn-success" style="position: relative;top: 5px">Publish</button>
+                    <button rel="{{item.pid}}" ng-click="togglePost('N', $event)" ng-show="item.published == 'Y'" class="btn btn-xs btn-danger" style="position: relative;top: 5px">Unpublish</button>
+                  </span>
                 </a>
               </li>
             </ul>
+            <h3 ng-show="paginationLength <= 0">No Posts</h3>
           </div>
         </div>
         <!-- Ends Panel -->

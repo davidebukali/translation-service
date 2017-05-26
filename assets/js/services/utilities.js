@@ -5,7 +5,12 @@ kacheApp.service('utilityService', function(
 	BranchService,
 	CollateralService
 	){
-	var window = $window, loadingObject;
+	var window = $window, 
+	loadingObject;
+
+	function getUrl(){
+		return appFtry.appUrl();
+	}
 
 	function capitaliseFirstLetter(string){
 		return string.charAt(0).toUppercase() + string.slice(1);
@@ -30,9 +35,9 @@ kacheApp.service('utilityService', function(
           userData['profileimage'] = 'dist/img/user-icon.png';
         }else{
           var pic = userData['profilePic'].split('.'),
-          // url = 'imagevibez.com/church';
-          url = 'localhost/zion-server';
-          userData['profileimage'] = 'http://'+url+'/churchimages/'+pic[0]+"_resize.jpg";
+          url = getUrl();
+          //url = 'localhost/zion-server';
+          userData['profileimage'] = url+'churchimages/'+pic[0]+"_resize.jpg";
         }
         return userData['profileimage'];
 	}
@@ -42,9 +47,8 @@ kacheApp.service('utilityService', function(
           profileimage = 'dist/img/user-icon.png';
         }else{
           var pic = profileimage.split('.'),
-          // url = 'imagevibez.com/church';
-          url = 'localhost/zion-server';
-          profileimage = 'http://'+url+'/churchimages/'+pic[0]+"_resize.jpg";
+          url = getUrl();
+          profileimage = url+'churchimages/'+pic[0]+"_resize.jpg";
         }
         return profileimage;	
 	}
@@ -277,6 +281,7 @@ kacheApp.service('utilityService', function(
 		cleanTagsData: formatDataForTags,
 		resetFileInput: resetFormElement,
 		getAvatarUrl: getAvatarUrl,
-		simpleAvatarUrl: simpleAvatarUrl
+		simpleAvatarUrl: simpleAvatarUrl,
+		getAppUrl: getUrl
 	});
 });

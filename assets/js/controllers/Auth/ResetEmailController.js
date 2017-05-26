@@ -3,8 +3,8 @@ kacheApp.controller('ResetEmailCtlr', function($scope, httpService, utilityServi
 
 	vm.resetPassword = function(event){
 		var btn = $(event.currentTarget),
-		url = 'http://localhost/zion-server/forgotpass.php';
-		//url = 'http://imagevibez.com/church/forgotpass.php';
+		//url = 'http://localhost/zion-server/forgotpass.php';
+		url = 'http://imagevibez.com/church/forgotpass.php';
 		btn.button('loading');
 		if (vm.email) {
 			httpService.post(url, {'txtemail': vm.email}).then(function(response){

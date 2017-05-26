@@ -277,3 +277,24 @@ Sponsor List Page
 td.profileImage {
   width: 20% !important;
 }
+
+/*****************************
+
+Users List Page
+
+******************************/
+table.dataTable tbody td,table.dataTable tbody th {
+  padding: 10px 10px;
+}
+
+/*****************************
+
+Posts List Page
+
+******************************/
+@media (min-width: 320px) and (max-width: 412px) {
+  span.postsTime {
+    top: 175px !important; 
+    font-size: 11px;
+  } 
+}

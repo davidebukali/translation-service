@@ -282,13 +282,8 @@ Login Page
   margin-top: 100px;
 }
 
-/*.login-panel {
-  width: 600px;
-}
-*/
 .register-panel {
    margin-top: 5%;
-   /*height: 500px;*/
 }
 
 .login-btn, .reset-btn {

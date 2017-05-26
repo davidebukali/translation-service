@@ -13,8 +13,7 @@ kacheApp.controller('ViewSponsors', function(
 
 	vm.dtOptions = DTOptionsBuilder.fromFnPromise(function(){
 		var defer = $q.defer();
-				//var URL = 'http://imagevibez.com/church/getUsersByType.php';
-				var URL = 'http://localhost/zion-server/getUsersByType.php';
+				var URL = utilityService.getAppUrl()+'getUsersByType.php';
 
 				httpService.get(URL).then(function(response){
 					appFtry.setData('sponsors', response.data.users);
@@ -56,9 +55,9 @@ kacheApp.controller('ViewSponsors', function(
 		var id = $(this).attr('rel'),
 		data = {
 			'uid': id,
-			'userStatus': 'Y'
+			'userstatus': 'Y'
 		},
-		url = 'http://localhost/zion-server/editUser.php';
+		url = utilityService.getAppUrl()+'toggleUsers.php';
 
 		httpService.post(url, data).then(function(response){
 			/*deleteRoleResponse(response);*/
@@ -76,12 +75,11 @@ kacheApp.controller('ViewSponsors', function(
 		var id = $(this).attr('rel'),
 		data = {
 			'uid': id,
-			'userStatus': 'N'
+			'userstatus': 'N'
 		},
-		url = 'http://localhost/zion-server/editUser.php';
+		url = utilityService.getAppUrl()+'toggleUsers.php';;
 
 		httpService.post(url, data).then(function(response){
-			/*deleteRoleResponse(response);*/
 			toggleBlockBtns(id);
 			console.log("res "+JSON.stringify(response));
 			loadBtn.button('reset');
@@ -102,12 +100,12 @@ kacheApp.controller('ViewSponsors', function(
 		data = {
 			'uid': id
 		},
-		url = 'http://localhost/zion-server/getMyPosts.php',
+		url = utilityService.getAppUrl()+'getMyPosts.php',
 		user = appFtry.getDataById('sponsors', id);
 
 		httpService.post(url, data).then(function(response){
 			appFtry.setData('posts', response.data.posts);
-			$state.go('parent.viewUserPosts', {uname: user.uname});
+			$state.go('parent.viewUserPosts', {uname: user.uname, uid: id});
 		}, function(error){
 			utilityService.notify('We are aware of this issue, send us an email if it persists - '+error.statusText, 'danger');
 		});
