@@ -86,7 +86,7 @@ kacheApp.controller('ViewSponsors', function(
 		url = utilityService.getAppUrl()+'toggleUsers.php';
 
 		httpService.post(url, data).then(function(response){
-			toggleBlockBtns(id);
+			showBlockBtn(id);
 			console.log("res "+JSON.stringify(response));
 			loadBtn.button('reset');
 		}, function(error){
@@ -112,7 +112,7 @@ kacheApp.controller('ViewSponsors', function(
 		url = utilityService.getAppUrl()+'toggleUsers.php';;
 
 		httpService.post(url, data).then(function(response){
-			toggleBlockBtns(id);
+			hideBlockBtn(id);
 			console.log("res "+JSON.stringify(response));
 			loadBtn.button('reset');
 		}, function(error){
@@ -128,9 +128,14 @@ kacheApp.controller('ViewSponsors', function(
 	* Hide or show block/unblock user buttons
 	*
 	*/
-	function toggleBlockBtns(id){
-		$('.disableUserButton-'+id).toggleClass('hide');
-		$('.enableUserButton-'+id).toggleClass('hide');
+	function hideBlockBtn(id){
+		$('.disableUserButton-'+id).addClass('hide');
+		$('.enableUserButton-'+id).removeClass('hide');
+	}
+
+	function showBlockBtn(id){
+		$('.disableUserButton-'+id).removeClass('hide');
+		$('.enableUserButton-'+id).addClass('hide');
 	}
 
 	/*

@@ -19,8 +19,8 @@ kacheApp.factory('appFtry', function(Lo){
       posts: setPosts,
       sponsors: setSponsorsData
     },
-    //env = 'prod';
-    env = 'dev';
+    env = 'prod';
+    //env = 'dev';
 
     function setSponsorsData(sponsors){
       var sponsorDataContainer = [];
