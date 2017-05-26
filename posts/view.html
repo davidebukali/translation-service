@@ -41,7 +41,7 @@
               <li ng-repeat="item in pagination.actualPosts">
                 <a style="width: 100%;">
                   <span class="image">
-                    <img ng-src="dist/img/user-icon.png" alt="img" style="width: 150px;" />
+                    <img ng-src="{{item.imagePaths}}" alt="img" style="width: 150px;" />
                   </span>
                   <span>
                     <span>{{pagination.username}}</span>
@@ -62,7 +62,7 @@
         </div>
         <!-- Ends Panel -->
 
-        <div class="row pull-right spacing-md">
+        <div class="row pull-right spacing">
           <div class="btn-toolbar">
           <div class="btn-group">
               <button ng-click="previous()" ng-disabled="pagination.counter == 1" class="btn btn-default" type="button">Previous</button> 

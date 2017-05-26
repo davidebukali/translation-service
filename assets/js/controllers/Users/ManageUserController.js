@@ -84,7 +84,7 @@ kacheApp.controller('ManageUserCtrl', function(
 	function uploadText(url, data, btn){
 		httpService.post(url, data).then(function(response){
 			console.log("Success "+JSON.stringify(response));
-			clearForm(btn)
+			clearForm(btn);
 			handleAddResponse(response);
 		}, function(error){
 			btn.button('reset');
@@ -110,7 +110,7 @@ kacheApp.controller('ManageUserCtrl', function(
 			if (vm.pageTitle=='Edit') {
 				handleUpdateResponse(res);
 			} else {
-				handleAddResponse(res);
+				handleAddResponse(res, btn);
 			}
 			btn.button('reset');
 		},function(err){
@@ -166,11 +166,11 @@ function handleUpdateResponse(response){
 	}
 }
 
-function handleAddResponse(response){
+function handleAddResponse(response, btn){
 	if(response.data.success){
 		utilityService.notify('<i class="fa fa-check medium-font"></i> User Added', 'success');
 		vm.payload = {};
-		vm.addUserForm.$setPristine();
+		clearForm(btn);
 	}else{
 		utilityService.notify('<i class="fa fa-exclamation-triangle medium-font"></i> Information - '+response.data.errormsg, 'info');
 	}

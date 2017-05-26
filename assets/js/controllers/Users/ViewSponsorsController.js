@@ -11,23 +11,35 @@ kacheApp.controller('ViewSponsors', function(
 	){
 	var vm = $scope;
 
+	/*
+	*
+	*
+	*
+	* Fetch user table data using a deferred/promise
+	*
+	*/
 	vm.dtOptions = DTOptionsBuilder.fromFnPromise(function(){
 		var defer = $q.defer();
-				var URL = utilityService.getAppUrl()+'getUsersByType.php';
-
-				httpService.get(URL).then(function(response){
-					appFtry.setData('sponsors', response.data.users);
-
-					var sponsorData = appFtry.getAllData('sponsors');
-
-					defer.resolve(sponsorData);
-				}, function(error){
-					utilityService.notify('We are aware of this problem, send us an email if it persists - '+error.statusText, 'danger');
-				});
-				return defer.promise;
-			}).withPaginationType('simple_numbers')
+		var URL = utilityService.getAppUrl()+'getUsersByType.php';
+		httpService.get(URL).then(function(response){
+			appFtry.setData('sponsors', response.data.users);
+			defer.resolve(appFtry.getAllData('sponsors'));
+		}, function(error){
+			utilityService.notify('We are aware of this problem, send us an email if it persists - '+error.statusText, 'danger');
+		});
+		return defer.promise;
+	})
+	.withPaginationType('simple_numbers')
 	.withDisplayLength(10)
 	.withBootstrap();
+
+	/*
+	*
+	*
+	*
+	* User Table column definitions
+	*
+	*/
 	vm.dtColumns = [
 	DTColumnBuilder.newColumn('id').withTitle('&nbsp&nbsp&nbsp #').notSortable(),
 	DTColumnBuilder.newColumn('pic').withClass('profileImage').withTitle('Profile Avatar').notSortable(),
@@ -38,6 +50,13 @@ kacheApp.controller('ViewSponsors', function(
 	DTColumnBuilder.newColumn('manageBtn').withTitle('Manage').notSortable()
 	];
 
+	/*
+	*
+	*
+	*
+	* Edit button click handler
+	*
+	*/
 	$(document).on('click', '.editUserButton', function(e){
 		e.preventDefault();
 		var id = $(this).attr('rel'), 
@@ -51,6 +70,13 @@ kacheApp.controller('ViewSponsors', function(
 		});
 	});
 
+	/*
+	*
+	*
+	*
+	* Unblock user button click handler
+	*
+	*/
 	$(document).on('click', '.enableUser', function(e){
 		var id = $(this).attr('rel'),
 		data = {
@@ -60,7 +86,6 @@ kacheApp.controller('ViewSponsors', function(
 		url = utilityService.getAppUrl()+'toggleUsers.php';
 
 		httpService.post(url, data).then(function(response){
-			/*deleteRoleResponse(response);*/
 			toggleBlockBtns(id);
 			console.log("res "+JSON.stringify(response));
 			loadBtn.button('reset');
@@ -70,6 +95,13 @@ kacheApp.controller('ViewSponsors', function(
 		});
 	});
 
+	/*
+	*
+	*
+	*
+	* Block user button click handler
+	*
+	*/
 	$(document).on('click', '.disableUser', function(e){
 		e.preventDefault();
 		var id = $(this).attr('rel'),
@@ -88,12 +120,26 @@ kacheApp.controller('ViewSponsors', function(
 			loadBtn.button('reset');
 		});
 	});
+	
+	/*
+	*
+	*
+	*
+	* Hide or show block/unblock user buttons
+	*
+	*/
+	function toggleBlockBtns(id){
+		$('.disableUserButton-'+id).toggleClass('hide');
+		$('.enableUserButton-'+id).toggleClass('hide');
+	}
 
 	/*
 	*
 	*
 	*
-	* View list of all user posts*/
+	* View list of all user posts
+	*
+	*/
 	$(document).on('click', '.viewUserPostsButton', function(e){
 		e.preventDefault();
 		var id = $(this).attr('rel'),
@@ -111,22 +157,17 @@ kacheApp.controller('ViewSponsors', function(
 		});
 	});
 
-	function toggleBlockBtns(id){
-		$('.disableUserButton-'+id).toggleClass('hide');
-		$('.enableUserButton-'+id).toggleClass('hide');
-	}
-
-	function deleteRoleResponse(response){
-		reloadTableData();
-		if(response.data.success){
-			utilityService.notify("Deleted Role - " + vm.payload.name, 'success');
-		}else{
-			utilityService.notify('Information - '+response.data.errormsg, 'info');
-		}
-	}
-
+	
 	vm.dtInstance = {};
 	vm.dtInstanceCallback = dtInstanceCallback;
+
+	/*
+	*
+	*
+	*
+	* Reload table data
+	*
+	*/
 	function reloadTableData(){
 		var resetPaging = true;
 		vm.dtInstance.reloadData(function(json){
@@ -135,7 +176,6 @@ kacheApp.controller('ViewSponsors', function(
 	}
 
 	function dtInstanceCallback(dt){
-		console.log("Instance callback");
 		vm.dtInstance = dt;
 	}
 });

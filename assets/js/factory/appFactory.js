@@ -19,6 +19,7 @@ kacheApp.factory('appFtry', function(Lo){
       posts: setPosts,
       sponsors: setSponsorsData
     },
+    //env = 'prod';
     env = 'dev';
 
     function setSponsorsData(sponsors){
@@ -57,12 +58,31 @@ kacheApp.factory('appFtry', function(Lo){
       return userData['profileimage'];
     }
 
+    function simpleAvatarUrl(profileimage, thumb){
+      if(profileimage.length == 0){
+        profileimage = 'dist/img/user-icon.png';
+      }else{
+        if(thumb){
+          var pic = profileimage.split('.');
+          profileimage = selectUrl()+'churchimages/'+pic[0]+"_resize.jpg";  
+        }else{
+          //
+          //Add .jpg on images that donot have extensions; Not the best way as not all images are jpegs
+          //
+          /*var imagename = profileimage.indexOf('.') == -1 ? profileimage+'.jpg' : profileimage;
+          profileimage = selectUrl()+'churchimages/'+imagename;  */
+          profileimage = selectUrl()+'churchimages/'+profileimage;  
+        }
+      }
+      return profileimage;  
+    }
+
     function setPosts(postData){
       var data = Lo.forEach(postData, function(item){            
         var date = new Date(item.time),
         time = date.toLocaleTimeString(),
         datestring = date.toDateString();
-        item.imagePaths = selectUrl()+"churchimages/"+item.imagePaths;
+        item.imagePaths = simpleAvatarUrl(item.imagePaths);
         item.time = datestring+', '+time;
         return item;
       });

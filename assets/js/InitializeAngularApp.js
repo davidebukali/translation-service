@@ -3,7 +3,7 @@ var kacheApp = angular.module('kache', [
 	'ui.router', 
 	'uiRouterStyles', 
 	'ng-backstretch', 
-	/*'angular-loading-bar', */
+	'angular-loading-bar',
 	'datatables', 
 	'datatables.bootstrap',
 	'ncy-angular-breadcrumb',
