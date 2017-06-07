@@ -2,7 +2,8 @@ kacheApp.factory('stateFactory', function(Lo, utilityService) {
 
   var state = function() {
     var data = {
-      manageUser: []
+      manageUser: [],
+      manageSponsoredPosts: []
     };
 
     return {

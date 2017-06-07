@@ -4,6 +4,7 @@
       <div class="title_left">
         <h3>Posts</h3>
       </div>
+      <a ui-sref="parent.addSponsoredPosts({manage: 'add'})" class="btn btn-success pull-right spacing" type="button">Add Sponsored Post</a>
       
     </div>
     <div class="clearfix"></div>
@@ -15,8 +16,8 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
 
         <div class="x_panel">
-          <div class="x_title">
-            <h2>{{pagination.username}} Posts <small>Sessions</small></h2>
+          <div class="x_title">Posts By {{pagination.username}}
+
 <!--             <ul class="nav navbar-right panel_toolbox">
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Filter <i class="fa fa-sort"></i></a>
@@ -34,37 +35,46 @@
     </ul>
   </li>
 </ul> -->
-<div class="clearfix"></div> 
-          </div>
-          <div class="x_content">
-            <ul class="list-unstyled msg_list">
-              <li ng-repeat="item in pagination.actualPosts">
-                <a style="width: 100%;">
-                  <span class="image">
-                    <img ng-src="{{item.imagePaths}}" alt="img" style="width: 150px;" />
-                  </span>
-                  <span>
-                    <span>{{pagination.username}}</span>
-                    <span class="postsTime"><br/>{{item.time}}</span>
-                  </span>
-                  <span class="message">
-                    {{item.content}}
-                  </span>
-                  <span>
-                    <button rel="{{item.pid}}" ng-click="togglePost('Y', $event)" ng-hide="item.published == 'Y'" class="btn btn-xs btn-success" style="position: relative;top: 5px">Publish</button>
-                    <button rel="{{item.pid}}" ng-click="togglePost('N', $event)" ng-show="item.published == 'Y'" class="btn btn-xs btn-danger" style="position: relative;top: 5px">Unpublish</button>
-                  </span>
-                </a>
-              </li>
-            </ul>
-            <h3 ng-show="paginationLength <= 0">No Posts</h3>
-          </div>
-        </div>
-        <!-- Ends Panel -->
 
+</div>
+<div class="x_content">
+
+
+
+  <div class="" role="tabpanel" data-example-id="togglable-tabs">
+    <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true"><h2> Normal </h2></a>
+      </li>
+      <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false"><h2>Sponsored</h2></a>
+      </li>
+
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
+        <h3 ng-show="paginationLength <= 0">No Posts</h3>
+        <ul class="list-unstyled msg_list">
+          <li ng-repeat="item in pagination.actualPosts">
+            <a style="width: 100%;">
+              <span class="image">
+                <img ng-src="{{item.imagePaths}}" alt="img" style="width: 150px;" />
+              </span>
+              <span>
+                <span>{{pagination.username}}</span>
+                <span class="postsTime"><br/>{{item.time}}</span>
+              </span>
+              <span class="message">
+                {{item.content}}
+              </span>
+              <span>
+                <button rel="{{item.pid}}" ng-click="togglePost('Y', $event)" ng-hide="item.published == 'Y'" class="btn btn-xs btn-success" style="position: relative;top: 5px">Publish</button>
+                <button rel="{{item.pid}}" ng-click="togglePost('N', $event)" ng-show="item.published == 'Y'" class="btn btn-xs btn-danger" style="position: relative;top: 5px">Unpublish</button>
+              </span>
+            </a>
+          </li>
+        </ul>
         <div class="row pull-right spacing">
           <div class="btn-toolbar">
-          <div class="btn-group">
+            <div class="btn-group">
               <button ng-click="previous()" ng-disabled="pagination.counter == 1" class="btn btn-default" type="button">Previous</button> 
             </div>
             <div class="btn-group">
@@ -78,12 +88,24 @@
             </div>
           </div>
         </div>
-
       </div>
-      <!-- Ends col-md-12 col-sm-12 col-xs-12 -->
-
+      <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
+          booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+        </div>
+      </div>
     </div>
-    <!-- Ends row -->
-
   </div>
+</div>
+<!-- Ends Panel -->
+
+
+
+</div>
+<!-- Ends col-md-12 col-sm-12 col-xs-12 -->
+
+</div>
+<!-- Ends row -->
+
+</div>
 <!-- Ends Page Content -->

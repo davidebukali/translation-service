@@ -5,7 +5,8 @@ kacheApp.controller('AuthCtlr', function(
 	$rootScope, 
 	utilityService, 
 	$window,
-	auth
+	auth,
+	appFtry
 	){
 	var vm = $scope;
 	vm.login = function($event) {
@@ -20,6 +21,7 @@ kacheApp.controller('AuthCtlr', function(
 			$rootScope.authenticated = true;
 			$rootScope.currentUser = user;
 			$state.go('parent.homeState');
+			refreshSponsoredPosts();
 		}).fail(function(error){
 			loginBtn.button('reset');
 			var error = error;
@@ -32,6 +34,15 @@ kacheApp.controller('AuthCtlr', function(
 			}else{
 				utilityService.notify(error, 'danger');
 			}
+		});
+	}
+
+	function refreshSponsoredPosts(){
+		var url = utilityService.getAppUrl()+'getSponsoredPosts.php';
+		httpService.get(url).then(function(response){
+			appFtry.setData('sponsoredposts', response.data.posts);
+		}, function(error){
+			utilityService.notify('We are aware of this issue, send us an email if it persists - '+error.statusText, 'danger');
 		});
 	}
 

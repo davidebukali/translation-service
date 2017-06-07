@@ -152,7 +152,13 @@ kacheApp.controller('ViewSponsors', function(
 			'uid': id
 		},
 		url = utilityService.getAppUrl()+'getMyPosts.php',
-		user = appFtry.getDataById('sponsors', id);
+		user = appFtry.getDataById('sponsors', id), 
+		stateFactoryDueForCaching = {
+			uname: user.uname,
+			uid: user.id
+		};
+		console.log("User is "+JSON.stringify(user));
+		stateFactory.setData('manageSponsoredPosts', stateFactoryDueForCaching);
 
 		httpService.post(url, data).then(function(response){
 			appFtry.setData('posts', response.data.posts);

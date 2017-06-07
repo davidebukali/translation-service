@@ -4,12 +4,13 @@ kacheApp.controller('PostsCtlr', function(
 	httpService, 
 	utilityService, 
 	appFtry,
-	$stateParams
+	$stateParams,
+	stateFactory
 	){
 	var vm = $scope;
 	vm.pagination = {};
 
-	vm.pagination.username = $stateParams.uname;
+	vm.pagination.username = stateFactory.getAllData('manageSponsoredPosts').uname;
 	vm.pagination.postsData = appFtry.getAllData('posts');
 	console.log("Our data is "+JSON.stringify(vm.pagination.postsData[0]));	
 	vm.paginationLength = vm.pagination.postsData.length;

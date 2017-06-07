@@ -73,7 +73,7 @@ kacheApp.config(function(
 	})
 
 	.state('parent.homeState', {
-		url: '/home/',
+		url: '/home',
 		templateUrl : 'dashboard/dashboard.html',
 		controller: 'Dashboard',
 		data: {
@@ -124,6 +124,23 @@ kacheApp.config(function(
 		ncyBreadcrumb: {
 		    label: 'Posts',
 		    parent: 'parent.viewUser'
+		}
+	})
+
+	.state('parent.addSponsoredPosts', {
+		url: '/posts/sponsored/{manage:(?:'+allowed.join('|')+')}',
+		templateUrl : 'posts/manage-sponsored.html',
+		controller: 'ManageSponsored',
+		data: {
+			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
+		},
+		params: {
+			manage: "add",
+			editId: "default"
+		},
+		ncyBreadcrumb: {
+		    label: '{{pageTitle}}',
+		    parent: 'parent.viewUserPosts'
 		}
 	});
 

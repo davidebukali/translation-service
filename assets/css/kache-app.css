@@ -298,3 +298,7 @@ Posts List Page
     font-size: 11px;
   } 
 }
+
+ul.bar_tabs {
+  height: 45px !important;
+}

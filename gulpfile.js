@@ -93,7 +93,7 @@ gulp.task('scripts', function() {
 		])
 	.pipe(concat('app.js'))
 	.pipe(ngAnnotate())
-	.pipe(uglify())
+	//.pipe(uglify())
 	.pipe(gulp.dest('dist/js'));
 });
 
