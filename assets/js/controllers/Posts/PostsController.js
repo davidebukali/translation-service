@@ -1,17 +1,26 @@
-kacheApp.controller('PostsCtlr', function(
+kacheApp.controller('ViewPostsCtlr', function(
 	$scope,
 	$state, 
 	httpService, 
 	utilityService, 
 	appFtry,
 	$stateParams,
-	stateFactory
+	stateFactory,
+	Lo
 	){
 	var vm = $scope;
+
+	/******************
+	
+	Normal Posts Tab
+
+	*******************/
 	vm.pagination = {};
+	vm.sponsoredPagination = {};
 
 	vm.pagination.username = stateFactory.getAllData('manageSponsoredPosts').uname;
 	vm.pagination.postsData = appFtry.getAllData('posts');
+	vm.sponsoredPagination.postsData = appFtry.getAllData('posts');
 	console.log("Our data is "+JSON.stringify(vm.pagination.postsData[0]));	
 	vm.paginationLength = vm.pagination.postsData.length;
 	vm.pagination.counter = 1;
@@ -38,14 +47,59 @@ kacheApp.controller('PostsCtlr', function(
 		vm.pagination.actualPosts = vm.pagination.postsData[index];		
 	}
 
+	/******************
+	
+	Sponsored Posts Tab
+
+	*******************/
+
+	vm.sponsoredPagination.username = stateFactory.getAllData('manageSponsoredPosts').uname;
+	console.log("Our data is "+JSON.stringify(vm.sponsoredPagination.postsData[0]));	
+	vm.sponsoredPaginationLength = vm.sponsoredPagination.postsData.length;
+	vm.sponsoredPagination.counter = 1;
+
+	vm.nextPage = function(){
+		vm.sponsoredPagination.counter = vm.sponsoredPagination.counter + 1;		
+		var index = vm.sponsoredPagination.counter-1;
+		vm.sponsoredPagination.actualPosts = vm.sponsoredPagination.postsData[index];
+		toggleActiveClass('.pager-'+index);
+	}
+
+	vm.previousPage = function(){
+		vm.sponsoredPagination.counter = vm.sponsoredPagination.counter - 1;	
+		var index = vm.sponsoredPagination.counter-1;
+		vm.sponsoredPagination.actualPosts = vm.sponsoredPagination.postsData[index];	
+		toggleActiveClass('.pager-'+index);
+	}
+
+	vm.sponsoredPagination.buttonClick = function(index, event){
+		toggleActiveClass(event.currentTarget);
+		vm.sponsoredPagination.counter = index + 1;
+		vm.sponsoredPagination.actualPosts = vm.sponsoredPagination.postsData[index];		
+	}
+
+
 	function init(index){
 		vm.pagination.actualPosts = vm.pagination.postsData[index-1];
+		vm.sponsoredPagination.actualPosts = filterSponsorPosts(vm.sponsoredPagination.postsData[index-1]);
 	}
 
 	function toggleActiveClass(element){
 		var activePager = $(element);
 		activePager.parent().children().removeClass('active');
 		activePager.addClass('active');
+	}
+
+	function filterSponsorPosts(data){
+		var sponsoredPosts =  
+		Lo.map(data, function(post){
+			Lo.filter(post, function(item){
+				console.log("Post "+JSON.stringify(item));
+				return item.posttype == "1";
+			});			
+		});
+		
+		return sponsoredPosts;
 	}
 
 	vm.togglePost = function(action, event){
@@ -61,7 +115,7 @@ kacheApp.controller('PostsCtlr', function(
 
 	function refreshPosts(){
 		var data = {
-			uid: $stateParams.uid
+			uid: stateFactory.getAllData('manageSponsoredPosts').uid
 		},
 		url = utilityService.getAppUrl()+'getMyPosts.php';
 		httpService.post(url, data).then(function(response){

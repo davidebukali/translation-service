@@ -113,7 +113,7 @@ kacheApp.config(function(
 	.state('parent.viewUserPosts', {
 		url: '/users/posts/view',
 		templateUrl : 'posts/view.html',
-		controller: 'PostsCtlr',
+		controller: 'ViewPostsCtlr',
 		data: {
 			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
 		},

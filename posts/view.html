@@ -79,7 +79,7 @@
             </div>
             <div class="btn-group">
 
-              <button ng-click="pagination.buttonClick($index, $event)" class="btn btn-default pager-{{$index}}" type="button" rel="{{$index}}" ng-repeat="item in pagination.postsData">
+              <button ng-click="pagination.buttonClick($index, $event)" class="btn btn-default pager-{{$index}}" type="button" rel="normal-{{$index}}" ng-repeat="item in pagination.postsData">
                 {{$index + 1}}
               </button>
             </div>
@@ -90,8 +90,43 @@
         </div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-          booth letterpress, commodo enim craft beer mlkshk aliquip</p>
+        <h3 ng-show="sponsoredPaginationLength <= 0">No Posts</h3>
+        <ul class="list-unstyled msg_list">
+          <li ng-repeat="item in sponsoredPagination.actualPosts">
+            <a style="width: 100%;">
+              <span class="image">
+                <img ng-src="{{item.imagePaths}}" alt="img" style="width: 150px;" />
+              </span>
+              <span>
+                <span>{{sponsoredPagination.username}}</span>
+                <span class="postsTime"><br/>{{item.time}}</span>
+              </span>
+              <span class="message">
+                {{item.content}}
+              </span>
+              <span>
+                <button rel="{{item.pid}}" ng-click="togglePost('Y', $event)" ng-hide="item.published == 'Y'" class="btn btn-xs btn-success" style="position: relative;top: 5px">Publish</button>
+                <button rel="{{item.pid}}" ng-click="togglePost('N', $event)" ng-show="item.published == 'Y'" class="btn btn-xs btn-danger" style="position: relative;top: 5px">Unpublish</button>
+              </span>
+            </a>
+          </li>
+        </ul>
+        <div class="row pull-right spacing">
+          <div class="btn-toolbar">
+            <div class="btn-group">
+              <button ng-click="previousPage()" ng-disabled="sponsoredPagination.counter == 1" class="btn btn-default" type="button">Previous</button> 
+            </div>
+            <div class="btn-group">
+
+              <button ng-click="sponsoredPagination.buttonClick($index, $event)" class="btn btn-default pager-{{$index}}" type="button" rel="sponsored-{{$index}}" ng-repeat="item in sponsoredPagination.postsData">
+                {{$index + 1}}
+              </button>
+            </div>
+            <div class="btn-group">
+              <button class="btn btn-default" type="button" ng-disabled="sponsoredPagination.counter == sponsoredPaginationLength" ng-click="nextPage()">Next</button> 
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
