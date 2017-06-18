@@ -2,7 +2,7 @@
     
     <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a ui-sref="homeState" class="site_title"><span style="margin-left: 30%;"><img src="dist/img/zionlogo.png" style="height: 80%;"></span></a>
+              <a ui-sref="homeState" class="site_title"><span style="margin-left: 30%;"><img src="dist/img/Kasha-Logo-White-Transparent-Background-510x134.png" style="height: 80%;"></span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -10,11 +10,11 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img ng-src="{{profilePic}}" alt="..." class="img-circle profile_img">
+                <img ng-src="dist/img/user-icon.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>{{username}}</h2>
+                <h2>Admin</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -28,53 +28,14 @@
                 <ul class="nav side-menu main-side-menu">
                   <li class="main-li">
                   <a class="parent" ui-sref="parent.homeState">
-                  <i class="fa fa-dashboard"></i> Dashboard
+                  <i class="fa fa-dashboard"></i> Home
                   </a>
                   </li>
                   <li class="main-li">
-                  <a class="parent">
-                  <i class="fa fa-user"></i> Users <span class="fa fa-chevron-down"></span>
+                  <a class="parent" ui-sref="parent.history">
+                  <i class="fa fa-user"></i> History
                   </a>
-                  <ul class="nav child_menu">
-                      <li class="child-li"><a class="parent" ui-sref="parent.viewUser">View</a>
-                      </li>
-                      <li class="child-li"><a class="parent" ui-sref="parent.manageUser({manage: 'add'})">Add</a>
-                      </li>
-                  </ul>
-                  </li>
-                   <li class="main-li">
-                   <a class="parent">
-                   <i class="fa fa-pencil-square-o"></i> Posts <span class="fa fa-chevron-down"></span>
-                   </a>
-                   <ul class="nav child_menu">
-                      <li class="child-li"><a class="parent" ui-sref="parent.viewSponsoredPosts">Sponsored</a></li>
-                      <li class="child-li"><a class="parent">Inappropriate</a></li>
-                    </ul>
-                  </li>
-                  <!--<li class="main-li"><a><i class="fa fa-paypal"></i> Repayments <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a ui-sref="viewRepayments">View</a></li>
-                  
-                      <li><a ui-sref="collectionSheets">Collection Sheets</a></li>
-                  
-                      <li><a ui-sref="reminders">Reminders</a></li>
-                    </ul>
-                  </li>
-                  <li class="main-li"><a><i class="fa fa-money"></i> Expenses <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a ui-sref="addExpenses">Add</a></li>
-                      <li><a ui-sref="viewExpenses">View</a></li>
-                  
-                    </ul>
-                  </li>
-                  <li class="main-li"><a><i class="fa fa-bar-chart"></i> Reports <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a ui-sref="collectionReports">Collections</a></li>
-                      <li><a ui-sref="cashFlow">Cashflows</a></li>
-                      <li><a ui-sref="profitAndLoss">Profit and Loss</a></li>
-                      <li><a ui-sref="portfolioAtRisk">Portfolio At Risk</a></li>
-                    </ul>
-                  </li> -->
+                  </li>                   
                 </ul>
               </div>
 

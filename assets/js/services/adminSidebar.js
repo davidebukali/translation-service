@@ -120,10 +120,6 @@ kacheApp.service('adminSidebarService', function($window, utilityService) {
     });
     // /Tooltip
 
-    setTimeout(function(){
-      utilityService.hideLoadingPage();
-    }, 3000);
-
   }
 
   var toggleMenu = function toggleMenu(){

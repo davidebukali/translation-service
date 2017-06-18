@@ -11,18 +11,24 @@
     "gulp-uglify": "^2.1.2"
   },
   "devDependencies": {
-    "angular": "^1.6.0",
+    "angular": "^1.6.4",
+    "angular-datatables": "^2.2.0",
     "angular-loading-bar": "^0.9.0",
-    "angular-ui-router": "^0.3.2",
+    "angular-mocks": "^1.6.4",
     "angular-sanitize": "^1.6.2",
+    "angular-ui-router": "^0.3.2",
     "axios": "^0.15.3",
     "cross-env": "^3.2.3",
     "font-awesome": "^4.6.3",
+    "google-translate-api": "^2.2.2",
+    "jasmine-core": "^2.6.4",
+    "karma": "^1.7.0",
+    "karma-chrome-launcher": "^2.1.1",
+    "karma-jasmine": "^1.1.0",
     "lodash": "^4.17.4",
     "please-wait": "0.0.5",
     "postcss-minify-selectors": "^2.0.7",
-    "ui-select": "^0.19.6",
-    "angular-datatables": "^2.2.0"
+    "ui-select": "^0.19.6"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,0 +1,55 @@
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="page-title">
+    <div class="title_left">
+      <h1>Kasha Translation Service</h1>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div ncy-breadcrumb></div>
+  <div class="row"> 
+    <div class="col-md-6 col-sm-6">
+
+      <div class="form-group">
+        <label for="heard2">Which language are you typing ?</label>
+        <select id="heard" class="form-control" required>
+          <option value="press">English</option>
+          <option value="net">Kiswahilli</option>
+          <option value="mouth">French</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-6">
+      <div class="form-group">
+        <label for="heard2">Which translation do you need ?</label>
+        <select id="heard2" class="form-control" required>
+          <option value="press">English</option>
+          <option value="net">Kiswahilli</option>
+          <option value="mouth">French</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="padding: 10px;">
+    <div class="form-group">
+      <textarea placeholder="Type in text to translate" id="translation-text" rows="5" columns="20" class="form-control" required>
+      </textarea>
+    </div>
+
+    <div class="form-group">
+      <div class="pull-right">
+        <button class="btn btn-default color-pink" ng-click="translate();">Translate</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="padding: 10px;" ng-show="showResults">
+    <div class="form-group">
+      <textarea disabled="" placeholder="Your translations will appear here after you press Translate Button" id="translation-results" rows="5" columns="20" class="form-control" required>
+      </textarea>
+    </div>
+  </div>
+
+</div>

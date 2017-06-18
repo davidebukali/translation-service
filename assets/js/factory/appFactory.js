@@ -1,96 +1,22 @@
 kacheApp.factory('appFtry', function(Lo){
-
   var app = function() {
     var data = {
-      posts: [],
-      sponsors: [],
-      sponsoredposts: []
+      history: [],
+      languages: []
     },
     setDataFunctions = {
-      posts: setPosts,
-      sponsors: setSponsorsData,
-      sponsoredposts: setSponsoredPosts
+      history: setHistory,
+      languages: setLanguages
     },
     //env = 'prod';
     env = 'dev';
 
-    function setSponsorsData(sponsors){
-      var sponsorDataContainer = [];
-      for(sponsor in sponsors){
-        var sponsorData = {};
-        var picUrl = getAvatarUrl(sponsors[sponsor]),
-        toggleEnableClass = sponsors[sponsor].userStatus == 'Y' ? 'hide' : '',
-        toggleDisableClass = sponsors[sponsor].userStatus == 'N' ? 'hide' : '';
-        sponsorData['id'] = parseInt(sponsors[sponsor].uid);
-        sponsorData['uname'] = sponsors[sponsor].uname;
-        sponsorData['email'] = sponsors[sponsor].email;
-        sponsorData['bio'] = sponsors[sponsor].bio;
-        sponsorData['pwd'] = sponsors[sponsor].pwd;
-        sponsorData['usertype'] = sponsors[sponsor].usertype;
-        sponsorData['userStatus'] = sponsors[sponsor].userStatus;
-        sponsorData['picUrl'] = picUrl;
-        sponsorData['viewposts'] = "<a class='btn btn-primary btn-xs viewUserPostsButton' rel='"+sponsors[sponsor].uid+"'>View Posts</a>";
-        sponsorData['pic'] = '<img src="'+picUrl+'" alt="..." class="img-circle profile_img" style=" width: 60px;">';
-        sponsorData['manageBtn'] = "<div class='row'><a class='btn btn-default btn-xs editUserButton' rel='"+sponsors[sponsor].uid+"'>Edit</a><a class='btn btn-danger btn-xs disableUser disableUserButton-"+sponsors[sponsor].uid+" "+toggleDisableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-lock'></i>&nbsp Block</a><a class='btn btn-success btn-xs enableUser enableUserButton-"+sponsors[sponsor].uid+" "+toggleEnableClass+"' rel='"+sponsors[sponsor].uid+"'><i class='fa fa-unlock'></i>&nbsp Unblock</a></div>";
-        sponsorDataContainer.push(sponsorData);
-      }
-      console.log("Our data is "+JSON.stringify(sponsorDataContainer));
-      return sponsorDataContainer;
+    function setHistory(historyData){
+      return historyData; 
     }
 
-    function getAvatarUrl(userData){
-      var profileImage = userData['profilePic'].length;
-      if(profileImage == 0){
-        userData['profileimage'] = 'dist/img/user-icon.png';
-      }else{
-        var pic = userData['profilePic'].split('.'),
-        url = selectUrl();
-        userData['profileimage'] = url+'churchimages/'+pic[0]+"_resize.jpg";
-      }
-      return userData['profileimage'];
-    }
-
-    function simpleAvatarUrl(profileimage, thumb){
-      if(profileimage.length == 0){
-        profileimage = 'dist/img/user-icon.png';
-      }else{
-        if(thumb){
-          var pic = profileimage.split('.');
-          profileimage = selectUrl()+'churchimages/'+pic[0]+"_resize.jpg";  
-        }else{
-          //
-          //Add .jpg on images that donot have extensions; Not the best way as not all images are jpegs
-          //
-          /*var imagename = profileimage.indexOf('.') == -1 ? profileimage+'.jpg' : profileimage;
-          profileimage = selectUrl()+'churchimages/'+imagename;  */
-          profileimage = selectUrl()+'churchimages/'+profileimage;  
-        }
-      }
-      return profileimage;  
-    }
-
-    function setPosts(postData){
-      var data = Lo.forEach(postData, function(item){            
-        var date = new Date(item.time),
-        time = date.toLocaleTimeString(),
-        datestring = date.toDateString();
-        item.imagePaths = simpleAvatarUrl(item.imagePaths);
-        item.time = datestring+', '+time;
-        return item;
-      });
-      return Lo.chunk(data, 5);
-    }
-
-    function setSponsoredPosts(sponsoredPostData){
-      var data = Lo.forEach(sponsoredPostData, function(item){            
-        var date = new Date(item.time),
-        time = date.toLocaleTimeString(),
-        datestring = date.toDateString();
-        item.imagePaths = simpleAvatarUrl(item.imagePaths);
-        item.time = datestring+', '+time;
-        return item;
-      });
-      return Lo.chunk(data, 5); 
+    function setLanguages(languageData){
+      return data['languages'] = languageData; 
     }
 
     function selectUrl() {
