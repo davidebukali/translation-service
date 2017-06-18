@@ -1,26 +1,25 @@
-kacheApp.controller('Dashboard', function($scope, TranslateLanguage, appFtry, Lo, $q, $http){
-	var vm = $scope,
-	key = 'trnsl.1.1.20170618T002653Z.5444f9ae8504462a.a6b01b7cf1e0dad825b68caca80b542b5b2b8117';
+kacheApp.controller('Dashboard', function($scope, TranslateLanguage, appFtry, Lo, $q){
+	var vm = $scope;
 	vm.showResults = false;
 	vm.originLanguages = [];
 	vm.tranlatedLanguages = [];
 
 	vm.translate = function(){
-		console.log('Translating');
+		//console.log('Translating');
 		return 'Translating';
 	}
 
-	vm.getLanguagesList = function(){
+	vm.getLanguagesList = function (){
 		var defer = $q.defer();
-		$http.post('https://translate.yandex.net/api/v1.5/tr.json/getLangs?ui=en&key='+key).then(function(res){
-			console.log("Response "+JSON.stringify(res));
-			if(!Lo.isUndefined(res.data.langs)){
-				appFtry.setData('languages', res.data.langs);
+		TranslateLanguage.get('en').then(function(res){
+			//console.log("Success Loaded Language List Response "+JSON.stringify(res.data.data));
+			if(!Lo.isUndefined(res.data.data.langs)){
+				appFtry.setData('languages', res.data.data.langs);
 				setUpLanguages();
-				defer.resolve(res);
+				defer.resolve(res.data);
 			}
 		}, function(err){
-			console.log("Error "+JSON.stringify(err));
+			//console.log("Error Didnot Load List Response "+JSON.stringify(err.data));
 			defer.reject();
 		});
 		return defer.promise;
