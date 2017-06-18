@@ -42,7 +42,6 @@
 });*/
 
 
-
 describe('Dashboard', function () {
   beforeEach(module('kache'));
 
@@ -51,50 +50,53 @@ describe('Dashboard', function () {
   successCallback,
   errorCallback,
   httpController,
-  $scope = {},
-  $controller,
+  $rootScope,
+  createController,
   key = 'trnsl.1.1.20170618T002653Z.5444f9ae8504462a.a6b01b7cf1e0dad825b68caca80b542b5b2b8117',
-  expectedUrl = 'https://translate.yandex.net/api/v1.5/tr.json/getLangs?ui=en&key='+key;
+  expectedUrl = 'https://translate.yandex.net/api/v1.5/tr.json/getLangs?ui=en&key='+key,
+  authRequestHandler,
+  $Lo;
 
-  beforeEach(inject(function ($rootScope, _$controller_, _$httpBackend_) {
-    $httpBackend = _$httpBackend_;
-    successCallback = jasmine.createSpy("SuccessGetLangs");
-    errorCallback = jasmine.createSpy("ErrorGetLangs");
-    $controller = _$controller_;
+  beforeEach(inject(function ($injector, Lo) {
+    $httpBackend = $injector.get('$httpBackend');
+    // backend definition common for all tests
+    authRequestHandler = $httpBackend.when('POST', expectedUrl).respond({
+      "dirs":["az-ru","be-bg"],
+      "langs":{
+        "af": "Afrikaans",
+        "am": "Amharic"
+      }
+    });
+    $rootScope = $injector.get('$rootScope');
+    $Lo = Lo;
+    var $controller = $injector.get('$controller');
+    createController = function() {
+      return $controller('Dashboard', {'$scope' : $rootScope });
+    };
   }));
-
-  beforeEach(function(){
-    httpController = $controller('Dashboard', {$scope: $scope});
-  });
 
   afterEach(function() {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('returns http requests successfully and resolves the promise', function () {
+  it('Returns supported languages list and caches them to a factory', function () {
     var data = {
-      data: {
-        dirs:["az-ru","be-bg"],
-        langs:{
-          "af": "Afrikaans",
-          "am": "Amharic"
-        }
+      "dirs":["az-ru","be-bg"],
+      "langs":{
+        "af": "Afrikaans",
+        "am": "Amharic"
       }
     };
+    $httpBackend.expectPOST(expectedUrl);
+    var httpController = createController();
     expect(httpController).toBeDefined();
-    $httpBackend.expectPOST(expectedUrl).respond(200, data);
-    promise = $scope.getLanguagesList();
-    promise.then(successCallback, errorCallback);
-
     $httpBackend.flush();
-
-    expect(successCallback).toHaveBeenCalledWith(data);
-    expect(errorCallback).not.toHaveBeenCalled();
+    expect($Lo.size($rootScope.originLanguages)).toBeGreaterThan(0);
   });
 
 
-  it('returns http requests with an error and rejects the promise', function () {
+  /*it('returns http requests with an error and rejects the promise', function () {
     $httpBackend.expectPOST(expectedUrl).respond(500, 'Oh no!!');
     promise = $scope.getLanguagesList();
     promise.then(successCallback, errorCallback);
@@ -103,7 +105,7 @@ describe('Dashboard', function () {
 
     expect(successCallback).not.toHaveBeenCalled();
     expect(errorCallback).toHaveBeenCalled();
-  });
+  });*/
 
 });
 

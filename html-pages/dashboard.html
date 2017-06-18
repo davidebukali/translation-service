@@ -2,31 +2,34 @@
 <div class="right_col" role="main">
   <div class="page-title">
     <div class="title_left">
-      <h1>Kasha Translation Service</h1>
+      <h1>Translation Service</h1>
     </div>
   </div>
   <div class="clearfix"></div>
   <div ncy-breadcrumb></div>
+  
+  <form class="translate-form">
   <div class="row"> 
     <div class="col-md-6 col-sm-6">
 
       <div class="form-group">
         <label for="heard2">Which language are you typing ?</label>
-        <select id="heard" class="form-control" required>
-          <option value="press">English</option>
-          <option value="net">Kiswahilli</option>
-          <option value="mouth">French</option>
+        <select id="originLang" class="form-control"  ng-model="selectedOriginValue">
+          <option ng:repeat="originLanguage in originLanguages" value="{{originLanguage.id}}">
+            {{originLanguage.value}}
+          </option>
         </select>
+
       </div>
     </div>
 
     <div class="col-md-6 col-sm-6">
       <div class="form-group">
         <label for="heard2">Which translation do you need ?</label>
-        <select id="heard2" class="form-control" required>
-          <option value="press">English</option>
-          <option value="net">Kiswahilli</option>
-          <option value="mouth">French</option>
+        <select id="translatedLang" class="form-control"  ng-model="selectedTranslatedValue">
+          <option ng:repeat="originLanguage in originLanguages" value="{{originLanguage.id}}">
+            {{originLanguage.value}}
+          </option>
         </select>
       </div>
     </div>
@@ -34,20 +37,24 @@
 
   <div class="row" style="padding: 10px;">
     <div class="form-group">
-      <textarea placeholder="Type in text to translate" id="translation-text" rows="5" columns="20" class="form-control" required>
+      <textarea placeholder="Type in text to translate" id="translation-text" rows="5" columns="20" class="form-control" ng-model="textToBeTranslated" required>
       </textarea>
     </div>
-
+    
     <div class="form-group">
       <div class="pull-right">
-        <button class="btn btn-default color-pink" ng-click="translate();">Translate</button>
+        <button type="submit" class="btn btn-default color-pink" ng-click="translate();">Translate</button>
       </div>
     </div>
-  </div>
+
+    <div ng-show="textToBeTranslated.length <= 0">Please Type In Text To Translate</div>
+  </div>  
+
+  </form>
 
   <div class="row" style="padding: 10px;" ng-show="showResults">
-    <div class="form-group">
-      <textarea disabled="" placeholder="Your translations will appear here after you press Translate Button" id="translation-results" rows="5" columns="20" class="form-control" required>
+    <div class="form-group" ng-show="textToBeTranslated.length > 0">
+      <textarea disabled="" ng-model="results" placeholder="Your translations will appear here after you press Translate Button" id="translation-results" rows="5" columns="20" class="form-control" required>
       </textarea>
     </div>
   </div>
