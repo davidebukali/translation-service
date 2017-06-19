@@ -1,9 +1,9 @@
 // Karma configuration
 // Generated on Sat Jun 17 2017 20:47:25 GMT+0300 (E. Africa Standard Time)
 var resources = 'assets/';
-var angularUiRouterPath = 'bower_components/angular-ui-router/release';
-var uiRouterStyles = 'bower_components/angular-ui-router-styles';
-var angularBreadcrumbPath = 'bower_components/angular-breadcrumb/dist';
+var angularUiRouterPath = 'node_modules/angular-ui-router/release';
+var uiRouterStyles = 'assets/libs/angular-ui-router-styles';
+var angularBreadcrumbPath = 'assets/libs/angular-breadcrumb/dist';
 var node_modules_path = 'node_modules/';
 
 module.exports = function(config) {
