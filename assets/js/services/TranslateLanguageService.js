@@ -9,8 +9,18 @@ kacheApp.service('TranslateLanguage', function(httpService) {
 		return httpService.post('https://translate.yandex.net/api/v1.5/tr.json/getLangs?ui='+chooseLanguage+'&key='+key, {});
 	}
 
+	var saveToDB = function saveToDB(data){
+		return httpService.post('http://localhost/translationAPI/save.php', data);
+	}
+
+	var loadFromDB = function loadFromDB(data){
+		return httpService.post('http://localhost/translationAPI/getData.php', data);
+	}
+
 	return({		
 		getLanguages: getLanguages,
-		translate: translateText
+		translate: translateText,
+		save: saveToDB,
+		get: loadFromDB
 	});
 });

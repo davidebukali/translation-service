@@ -6,9 +6,9 @@ var Server = require('karma').Server;
 
 var bootstrapPath = 'node_modules/bootstrap/dist';
 var angularPath = 'node_modules/angular';
-var angularUiRouterPath = 'bower_components/angular-ui-router/release';
-var uiRouterStyles = 'bower_components/angular-ui-router-styles';
-var angularBreadcrumbPath = 'bower_components/angular-breadcrumb/dist';
+var angularUiRouterPath = 'node_modules/angular-ui-router/release';
+var uiRouterStyles = 'assets/libs/angular-ui-router-styles';
+var angularBreadcrumbPath = 'assets/libs/angular-breadcrumb/dist';
 var node_modules_path = 'node_modules/';
 var resources = 'assets/';
 
@@ -64,7 +64,6 @@ gulp.task('vendorscripts', function() {
 		resources+'libs/moment/min/moment.min.js',
 		resources+'libs/bootstrap-daterangepicker/daterangepicker.js',
 		resources+'libs/jQuery-Smart-Wizard/js/jquery.smartWizard.js',
-		'bower_components/ng-backstretch/dist/ng-backstretch.min.js',
 
 		resources+'libs/angular-datatables/angular-datatables.min.js',
 		resources+'libs/angular-datatables/plugins/bootstrap/angular-datatables.bootstrap.min.js',

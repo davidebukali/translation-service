@@ -1,47 +1,3 @@
-/*describe('Dashboard Requests', function() {
-  var $httpBackend, $rootScope, createController, authRequestHandler;
-
-  beforeEach(module('kache'));
-
-  beforeEach(inject(function($injector){
-    $httpBackend = $injector.get('$httpBackend');
-    // backend definition common for all tests
-    authRequestHandler = $httpBackend.when('POST', 'https://translate.yandex.net/api/v1.5/tr.json/getLangs').respond({
-      data: {
-        dirs:[az-ru,be-bg],
-        langs:{af:Afrikaans,am:Amharic}
-      }});
-
-    // Get hold of a scope (i.e. the root scope)
-    $rootScope = $injector.get('$rootScope');
-     // The $controller service is used to create instances of controllers
-     var $controller = $injector.get('$controller');
-
-     createController = function() {
-       return $controller('Dashboard', {'$scope' : $rootScope });
-     };
-   }));
-
-  afterEach(function(){
-    $httpBackend.verifyNoOutstandingExpectation();
-    $httpBackend.verifyNoOutstandingRequest();
-  });
-
-  it('It should fetch languages', function(){
-    var controller = createController();
-    $httpBackend.expectPOST('https://translate.yandex.net/api/v1.5/tr.json/getLangs', {}).respond(200, {
-      data: {
-        dirs:[az-ru,be-bg],
-        langs:{af:Afrikaans,am:Amharic}
-      }});
-    $rootScope.getLanguagesList();
-    $httpBackend.flush();
-    expect($rootScope.originLanguages.length).toBeGreaterThan(0);
-  });
-
-});*/
-
-
 describe('Dashboard', function () {
   beforeEach(module('kache'));
 
@@ -49,25 +5,27 @@ describe('Dashboard', function () {
   promise,
   successCallback,
   errorCallback,
+  validationErrorCallback,
+  validationSuccessCallback,
   httpController,
   $rootScope,
   createController,
   key = 'trnsl.1.1.20170618T002653Z.5444f9ae8504462a.a6b01b7cf1e0dad825b68caca80b542b5b2b8117',
-  expectedUrl = 'https://translate.yandex.net/api/v1.5/tr.json/getLangs?ui=en&key='+key,
-  authRequestHandler,
+  getLangUrl = 'https://translate.yandex.net/api/v1.5/tr.json/getLangs?ui=en&key='+key,
+  translateTextUrl = 'https://translate.yandex.net/api/v1.5/tr.json/translate?lang=en-sw&text=How are you&key='+key,
+  saveTextUrl = 'http://localhost/translationAPI/save.php',
   $Lo;
 
   beforeEach(inject(function ($injector, Lo) {
     $httpBackend = $injector.get('$httpBackend');
-    // backend definition common for all tests
-    authRequestHandler = $httpBackend.when('POST', expectedUrl).respond({
-      "dirs":["az-ru","be-bg"],
-      "langs":{
-        "af": "Afrikaans",
-        "am": "Amharic"
-      }
-    });
     $rootScope = $injector.get('$rootScope');
+    successCallback = jasmine.createSpy('SuccessTranslate');
+    errorCallback = jasmine.createSpy('ErrorTranslate');
+
+    validationSuccessCallback = jasmine.createSpy('ValidationSuccessTranslate');
+    validationErrorCallback = jasmine.createSpy('ValidationErrorTranslate').and.callFake(function() {
+      return 1001;
+    });;
     $Lo = Lo;
     var $controller = $injector.get('$controller');
     createController = function() {
@@ -88,7 +46,7 @@ describe('Dashboard', function () {
         "am": "Amharic"
       }
     };
-    $httpBackend.expectPOST(expectedUrl);
+    $httpBackend.expectPOST(getLangUrl).respond(data);
     var httpController = createController();
     expect(httpController).toBeDefined();
     $httpBackend.flush();
@@ -96,40 +54,54 @@ describe('Dashboard', function () {
   });
 
 
-  /*it('returns http requests with an error and rejects the promise', function () {
-    $httpBackend.expectPOST(expectedUrl).respond(500, 'Oh no!!');
-    promise = $scope.getLanguagesList();
+  it('Translates text from one language to another', function (done) {
+    var data = {"code":200,"lang":"en-sw","text":["kuwapiga"]};
+    $httpBackend.expectPOST(translateTextUrl).respond(data);
+    var httpController = createController();
+    $rootScope.selectedOriginValue = 'en';
+    $rootScope.selectedTranslatedValue = 'sw';
+    $rootScope.textToBeTranslated = 'How are you';
+    promise = $rootScope.translate();
     promise.then(successCallback, errorCallback);
 
     $httpBackend.flush();
 
-    expect(successCallback).not.toHaveBeenCalled();
-    expect(errorCallback).toHaveBeenCalled();
-  });*/
+    expect(successCallback).toHaveBeenCalledWith(angular.fromJson(data));
+    expect(errorCallback).not.toHaveBeenCalled();
+
+    $rootScope.$digest();
+    done();
+  });
+
+  it('Require characters in the textarea before making a request', function (done) {
+    var httpController = createController();
+    $rootScope.selectedOriginValue = 'en';
+    $rootScope.selectedTranslatedValue = 'sw';
+    $rootScope.textToBeTranslated = "";
+
+    promise = $rootScope.translate();
+    promise.catch(null, validationErrorCallback);
+    
+    expect($rootScope.textToBeTranslated).toBeFalsy();
+
+    $rootScope.$digest();
+    done();
+  });
+
+  it('Saves translations to MYSQL database', function () {
+    var data = {"success":1,"message":"Saved"};
+    $httpBackend.expectPOST(saveTextUrl).respond(data);
+    var httpController = createController();
+    $rootScope.selectedOriginValue = 'en';
+    $rootScope.selectedTranslatedValue = 'sw';
+    $rootScope.textToBeTranslated = 'How are you';
+    promise = $rootScope.saveToServer('jinsi ni wewe');
+    promise.then(successCallback, errorCallback);
+
+    $httpBackend.flush();
+
+    expect(successCallback).toHaveBeenCalledWith(angular.fromJson(data));
+    expect(errorCallback).not.toHaveBeenCalled();
+  });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
