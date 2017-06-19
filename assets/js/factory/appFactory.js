@@ -1,32 +1,14 @@
 kacheApp.factory('appFtry', function(Lo){
   var app = function() {
     var data = {
-      history: [],
       languages: []
     },
     setDataFunctions = {
-      history: setHistory,
       languages: setLanguages
-    },
-    //env = 'prod';
-    env = 'dev';
-
-    function setHistory(historyData){
-      return historyData; 
-    }
+    };
 
     function setLanguages(languageData){
       return data['languages'] = languageData; 
-    }
-
-    function selectUrl() {
-      var url = "";
-      if(env.indexOf('dev') != -1){
-        url = "http://localhost/zion-server/";
-      }else {
-        url = "http://imagevibez.com/church/";
-      }
-      return url;
     }
 
     return {

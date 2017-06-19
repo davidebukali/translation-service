@@ -13,8 +13,8 @@ kacheApp.service('TranslateLanguage', function(httpService) {
 		return httpService.post('http://localhost/translationAPI/save.php', data);
 	}
 
-	var loadFromDB = function loadFromDB(data){
-		return httpService.post('http://localhost/translationAPI/getData.php', data);
+	var loadFromDB = function loadFromDB(){
+		return httpService.get('http://localhost/translationAPI/getData.php');
 	}
 
 	return({		

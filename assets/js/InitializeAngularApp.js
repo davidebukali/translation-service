@@ -38,7 +38,7 @@ kacheApp.config(function(
 	.state('parent.history', {
 		url: '/history',
 		templateUrl : 'html-pages/history.html',
-		/*controller: 'ViewSponsors',*/
+		controller: 'HistoryCtrl',
 		data: {
 			css: ['dist/css/gentelella-admin.css', 'dist/css/kache-app.css']
 		},

@@ -17,6 +17,27 @@
         <div class="x_content">
           <br />
 
+          <table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Original Text</th>
+      <th>Translated Text</th>
+      <th>Original Language</th>
+      <th>Translated Language</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="word in words">
+      <th scope="row">{{word.id}}</th>
+      <td>{{word.originalText}}</td>
+      <td>{{word.translatedText}}</td>
+      <td>{{word.originalLang}}</td>
+      <td>{{word.translatedLang}}</td>
+    </tr>
+  </tbody>
+</table>
+          
 
         </div>
       </div>
