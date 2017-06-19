@@ -9,7 +9,7 @@ It is a language translation service that changes words and phrases from differe
 - Project runs at http://localhost/kasha-translation-service
 
 ## Server Setup
-- Extract **translationAPI.zip** (found inside cloned ./kasha-translation-service) into a folder translationAPI (**www/translationAPI/** client web app uses this location **http://localhost/tranlationAPI/** to save and read completed translations) on your development server root
+- Extract **translationAPI.zip** [found inside cloned ./kasha-translation-service] into your development server root [**www/translationAPI** the client web app uses this location **http://localhost/tranlationAPI/** to save and read completed translations]
 - Create user, password and database with names **kasha**
 - Import database file **translationAPI.sql** to the new kasha database you created
 
